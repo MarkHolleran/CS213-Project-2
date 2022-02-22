@@ -6,4 +6,6 @@ public class Profile {
     private String lname;
     private String dob;
 
+    //cannot add other instance variables
+
 }
