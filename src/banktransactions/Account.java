@@ -11,7 +11,6 @@ public abstract class Account {
 
     //cannot add additional instance variables or change method signatures
 
-
     protected Profile holder;
     protected boolean closed;
     protected double balance;
@@ -23,6 +22,8 @@ public abstract class Account {
 
     public void withdraw(double amount){}
     public void deposit(double amount){}
+
+    //these three are applicable to the 4 account types
     public abstract double monthlyInterest(); //return monthly interest
     public abstract double fee(); //return monthly fee
     public abstract String getType(); //return account type (class name)
