@@ -5,6 +5,12 @@ import java.util.StringTokenizer;
 
 public class BankTeller {
 
+    //define a run() method that handles the transactions
+    //keep this method under 35 lines
+    //handle all exceptions and invalid data before it calls the method in AccountDatabse class to complete tranasctions
+
+    //could get inputmismatchexceptions, numberformatexceptions, nosuchelementexception, invalid (dates, campus codes, deposits, withdraws)
+
     //opening a new account
     //closing an existing account
     //depositing money to an existing account

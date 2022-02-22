@@ -2,6 +2,11 @@ package banktransactions;
 
 public class MoneyMarket {
 
+    //extends the Savings class
+    //includes specific data and operaitons to a money market account
+
+    //monthlyInterest()
+
 
 
 

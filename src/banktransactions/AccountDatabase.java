@@ -2,6 +2,18 @@ package banktransactions;
 
 public class AccountDatabase {
 
+    //array based container
+    //that holds a list of acounts with different types
+
+    //initial capacity of the array is 4
+    //will automatically grow capacity by 4 if array is full
+    //size never shrinks
+
+
+    //cannot add additional instance variables or change method signatures
+
+    //can add additional methods but all the publci ones must take a single parameter or no paremeters
+
     private Account[] accounts;
     private int numAcct;
 
