@@ -1,5 +1,7 @@
 package banktransactions;
 
+//import java.text.DecimalFormat;
+
 public abstract class Account {
 
     //abstract class
@@ -16,12 +18,34 @@ public abstract class Account {
     protected double balance;
 
     @Override
-    public boolean equals(Object obj){}
-    @Override
-    public String toString(){}
+    public boolean equals(Object obj){
 
-    public void withdraw(double amount){}
-    public void deposit(double amount){}
+        boolean a;
+        return a;
+
+
+    }
+    @Override
+    public String toString(){
+
+        String a = new String();
+        return a;
+    }
+
+    public void withdraw(double amount){
+
+       balance = balance - amount;
+
+    }
+    public void deposit(double amount){
+
+       // DecimalFormat twoDeciFormat = new DecimalFormat("#.##");
+        //  balance = Integer.parseInt(twoDeciFormat.format(balance + amount));
+        //how to display in 2 decimal format
+
+        balance = balance + amount;
+
+    }
 
     //these three are applicable to the 4 account types
     public abstract double monthlyInterest(); //return monthly interest
