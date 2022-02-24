@@ -27,9 +27,9 @@ public abstract class Account {
     }
     @Override
     public String toString(){
-        DecimalFormat dformat = new DecimalFormat("$#,###.##");
+        DecimalFormat dformat = new DecimalFormat("#,###.##");
         //Checking::April March 1/15/1987::Balance $0.00::CLOSED
-        StringBuilder sb = new StringBuilder(holder.toString() + "::Balance $" + dformat.format(balance));
+        StringBuilder sb = new StringBuilder(getType() + "::" + holder.toString() + "::Balance $" + dformat.format(balance));
 
         if(closed){
             sb.append("::CLOSED");
