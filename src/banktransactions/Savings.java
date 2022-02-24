@@ -39,7 +39,7 @@ public class Savings extends Account {
 
         Profile newprofile = new Profile("Mark","Holleran",newdate);
 
-        Savings newsavings = new Savings(newprofile, false, 100.3, 1);
+        Savings newsavings = new Savings(newprofile, false, 10033.303, 1);
 
         System.out.println(newsavings.toString());
 
