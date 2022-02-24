@@ -8,10 +8,10 @@ public class Checking extends Account {
     public static final String ACCOUNT_TYPE = "Checking";
 
 
-    public Checking(Profile profile, boolean closed, double balance){
+    public Checking(Profile profile, double balance){
 
         super.holder = profile;
-        super.closed = closed;
+        super.closed = false;
         super.deposit(balance);
 
     }

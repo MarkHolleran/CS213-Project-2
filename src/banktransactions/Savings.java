@@ -9,10 +9,10 @@ public class Savings extends Account {
     public static final String ACCOUNT_TYPE = "Savings";
     public int loyalCustomer;
 
-    public Savings(Profile profile, boolean closed, double balance, int loyalCustomer ) {
+    public Savings(Profile profile, double balance, int loyalCustomer ) {
 
         super.holder = profile;
-        super.closed = closed;
+        super.closed = false;
         super.deposit(balance);
         this.loyalCustomer = loyalCustomer;
     }
@@ -49,8 +49,8 @@ public class Savings extends Account {
 
         Profile newprofile = new Profile("Mark","Holleran",newdate);
 
-        Savings newsavings = new Savings(newprofile, false, 10033.303, 1);
-        Checking newchecking = new Checking(newprofile, false, 10033.303);
+        Savings newsavings = new Savings(newprofile, 10033.303, 1);
+        Checking newchecking = new Checking(newprofile,10033.303);
 
 
         System.out.println(newsavings.toString());
