@@ -9,28 +9,38 @@ public class Savings extends Account {
     public static final String ACCOUNT_TYPE = "Savings";
     public int loyalCustomer;
 
-    public Savings(Profile profile, boolean closed, double balance, int loyalCustomer ) {
+    public Savings(Profile profile, double balance, int loyalCustomer ) {
 
         super.holder = profile;
-        super.closed = closed;
+        super.closed = false;
         super.deposit(balance);
         this.loyalCustomer = loyalCustomer;
     }
 
     public double monthlyInterest(){
+
         return this.balance + this.balance*INTEREST_RATE_PERCENTAGE;
+
     }
 
     public double fee(){
+
         if(this.balance>=BALANCE_IF_WAIVED){
+
             return NO_FEE;
+
         }else{
+
             return MONTHLY_SAVINGS_FEE;
+
         }
+
     }
 
     public String getType(){
+
         return ACCOUNT_TYPE;
+
     }
 
     public static void main(String[] args){
@@ -39,9 +49,13 @@ public class Savings extends Account {
 
         Profile newprofile = new Profile("Mark","Holleran",newdate);
 
-        Savings newsavings = new Savings(newprofile, false, 10033.303, 1);
+        Savings newsavings = new Savings(newprofile, 10033.303, 1);
+        Checking newchecking = new Checking(newprofile,10033.303);
+
 
         System.out.println(newsavings.toString());
+        System.out.println(newchecking.toString());
+
 
     }
 

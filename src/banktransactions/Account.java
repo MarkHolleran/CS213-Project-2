@@ -1,6 +1,5 @@
 package banktransactions;
 
-//import java.text.DecimalFormat;
 
 import java.text.DecimalFormat;
 
