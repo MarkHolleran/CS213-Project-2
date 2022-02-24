@@ -23,7 +23,4 @@ public class Savings extends Account {
     public String getType(){
         return ACCOUNT_TYPE;
     }
-
-
-
 }

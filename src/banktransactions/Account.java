@@ -22,12 +22,17 @@ public abstract class Account {
 
     @Override
     public boolean equals(Object obj){
-        Account acct = (Account) obj;
-        return (this.closed == acct.closed) && (this.balance == acct.balance) && (this.holder.equals(acct.holder));
+
+        if(obj instanceof Account){
+            Account acct = (Account) obj;
+            return (this.closed == acct.closed) && (this.balance == acct.balance) && (this.holder.equals(acct.holder));
+
+        }
+         return false;
     }
     @Override
     public String toString(){
-        DecimalFormat dformat = new DecimalFormat("$#,###.##");
+        DecimalFormat dformat = new DecimalFormat("#,##0.00");
         //Checking::April March 1/15/1987::Balance $0.00::CLOSED
         StringBuilder sb = new StringBuilder(holder.toString() + "::Balance $" + dformat.format(balance));
 
