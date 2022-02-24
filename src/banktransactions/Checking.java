@@ -36,6 +36,15 @@ public class Checking extends Account {
 
     }
 
+    public void withdraw(double amount){
+        super.withdraw(amount);
+    }
+
+    public void deposit(double amount){
+        super.deposit(amount);
+    }
+
+
     public String getType(){
 
         return ACCOUNT_TYPE;

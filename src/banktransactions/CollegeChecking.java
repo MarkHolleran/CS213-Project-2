@@ -12,3 +12,118 @@ public class CollegeChecking extends Checking {
 
 }
 */
+
+package banktransactions;
+
+public class CollegeChecking extends Checking {
+
+    public final double NO_FEE = 0;
+    public final double MONTHLY_FEE = 10;
+    public final double NONLOYAL_INTEREST_RATE_PERCENTAGE = 0.8/100;
+    public final double LOYAL_INTEREST_RATE_PERCENTAGE = 0.95/100;
+    public int withdrawCount = 0;
+
+    public final double BALANCE_IF_WAIVED = 2500;
+    public final String ACCOUNT_TYPE = "College Checking";
+    private int loyalCustomer = 1;
+    private int campusCode;
+    //1 by default ... other constructor for if not loyal
+    //extends the Savings class
+    //includes specific data and operaitons to a money market account
+
+
+    public CollegeChecking(Profile profile, double balance, int campusCode){
+        super(profile, balance);
+        this.campusCode = campusCode;
+    }
+
+
+
+    public double monthlyInterest(){
+
+
+        //if balance falls below 2500 then no longer loyal and interest goes to .80
+        //if balance is above 2500 then customer remains loyal and interest stays at .95
+
+        if (this.balance > BALANCE_IF_WAIVED ){
+
+            return (LOYAL_INTEREST_RATE_PERCENTAGE);
+        }
+
+        if (this.balance < BALANCE_IF_WAIVED ){
+            //if falls under required balance
+
+            loyalCustomer = 0;
+
+            return NONLOYAL_INTEREST_RATE_PERCENTAGE;
+
+            return super.monthlyInterest();
+            //not sure if this will return the interest rates for this one
+
+            //return this.balance + this.balance*INTEREST_RATE_PERCENTAGE;
+
+        }
+
+
+        public void deposit(double amount){
+
+           super.deposit(amount);
+
+            withdrawCount++;
+
+            if (this.withdrawCount > 3){
+
+                loyalCustomer = 0;
+
+            }
+        }
+
+        public void withdraw(double amount){
+
+            super.withdraw(amount);
+
+            withdrawCount++;
+
+            if (this.withdrawCount >= 3){
+                loyalCustomer = 0;
+            }
+        }
+
+
+        public String getType(){
+
+            return ACCOUNT_TYPE;
+
+        }
+
+        public double fee(){
+
+            if (this.balance >=BALANCE_IF_WAIVED && withdrawCount <= 3){
+
+                return NO_FEE;
+
+            }
+            if (this.balance >= BALANCE_IF_WAIVED && withdrawCount > 3){
+
+                return MONTHLY_FEE;
+
+
+            }
+
+
+        }
+
+
+
+
+    }
+//By default, it is a loyal customer account
+
+//• If the balance falls below $2500, then it is not a
+//loyal customer account anymore
+
+//• A loyal customer account gets additional interest
+//rate 0.15%; that is, annual interest rate will be
+//0.95%.
+//• Fee cannot be waived if the number of
+//withdrawals exceeds 3 times

@@ -1,5 +1,3 @@
-
-
 package banktransactions;
 
 public class MoneyMarket extends Savings {
@@ -11,17 +9,17 @@ public class MoneyMarket extends Savings {
     public int withdrawCount = 0;
 
     public final double BALANCE_IF_WAIVED = 2500;
-    public final String ACCOUNT_TYPE = "Money Market Savings";
+    public static final String ACCOUNT_TYPE = "Money Market Savings";
     public int loyalCustomer = 1;
     //1 by default ... other constructor for if not loyal
     //extends the Savings class
     //includes specific data and operaitons to a money market account
 
 
-    public MoneyMarket(Profile profile, double balance){
+    public MoneyMarket(Profile profile, double balance, int loyalCustomer ){
 
 
-        super(profile, balance, );
+        super(profile, balance, loyalCustomer);
 
         super.holder = profile;
         super.closed = false;
@@ -57,9 +55,9 @@ public class MoneyMarket extends Savings {
 
     }
 
-    @Override
-    public void deposit(double amount){
 
+    public void deposit(double amount){
+    
         balance -= amount;
 
         withdrawCount++;
@@ -75,7 +73,7 @@ public class MoneyMarket extends Savings {
 
     public String getType(){
 
-        return super.getType();
+        return ACCOUNT_TYPE;
 
     }
 
@@ -88,8 +86,6 @@ public class MoneyMarket extends Savings {
 
         }
         if (this.balance >= BALANCE_IF_WAIVED && withdrawCount > 3){
-
-            //since withdraw is greater than 3 we enforce fee
 
             return MONTHLY_FEE;
 
