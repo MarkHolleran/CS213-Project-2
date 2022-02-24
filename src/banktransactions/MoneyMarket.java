@@ -1,5 +1,12 @@
 package banktransactions;
 
+/**
+ * Class that represents a MoneyMarket account
+ *
+ *
+ * @author Mark Holleran, Abhitej Bokka
+ */
+
 public class MoneyMarket extends Savings {
 
     public final double NO_FEE = 0;
@@ -7,6 +14,7 @@ public class MoneyMarket extends Savings {
     public final double NONLOYAL_INTEREST_RATE_PERCENTAGE = 0.8/100;
     public final double LOYAL_INTEREST_RATE_PERCENTAGE = 0.95/100;
     public int withdrawCount = 0;
+    public int MAX_WITHDRAWLIMIT = 3;
 
     public final double BALANCE_IF_WAIVED = 2500;
     public static final String ACCOUNT_TYPE = "Money Market Savings";
@@ -15,65 +23,70 @@ public class MoneyMarket extends Savings {
     //extends the Savings class
     //includes specific data and operaitons to a money market account
 
+    /**
+     *
+     * @param profile
+     * @param balance
+     */
+    public MoneyMarket(Profile profile, double balance){
+        //moneymarket account is loyal by default
 
-    public MoneyMarket(Profile profile, double balance, int loyalCustomer ){
-
-
-        super(profile, balance, loyalCustomer);
-
-        super.holder = profile;
+        super(profile,balance,1);
+        //does this count as a magic number?
         super.closed = false;
-
-        super.deposit(balance);
 
     }
 
-
-
-    public double monthlyInterest(){
+    @Override
+    public double monthlyInterest() {
 
 
         //if balance falls below 2500 then no longer loyal and interest goes to .80
         //if balance is above 2500 then customer remains loyal and interest stays at .95
 
-        if (this.balance > BALANCE_IF_WAIVED ){
+        if (this.balance > BALANCE_IF_WAIVED) {
+            //if balance is greater than threshold
+            return this.balance +this.balance*LOYALINTEREST_RATE_PERCENTAGE;
 
-            return (LOYAL_INTEREST_RATE_PERCENTAGE);
-        }
-
-        if (this.balance < BALANCE_IF_WAIVED ){
-            //if falls under required balance
-
+        }else {
+                //means balance is less than the threshold
             loyalCustomer = 0;
+            //loyalcustomer revoked
 
-            return NONLOYAL_INTEREST_RATE_PERCENTAGE;
+            return this.balance + this.balance*NONLOYAL_INTEREST_RATE_PERCENTAGE;
 
-        return super.monthlyInterest();
-        //not sure if this will return the interest rates for this one
+            //not sure if this will return the interest rates for this one
 
-        //return this.balance + this.balance*INTEREST_RATE_PERCENTAGE;
+            //return this.balance + this.balance*INTEREST_RATE_PERCENTAGE;
+
+        }
 
     }
 
 
-    public void deposit(double amount){
+    public void withdraw(double amount){
     
-        balance -= amount;
+        super.withdraw(amount);
 
         withdrawCount++;
 
-        if (this.withdrawCount > 3){
+        if (this.withdrawCount > MAX_WITHDRAWLIMIT){
 
             loyalCustomer = 0;
 
         }
 
+    }
+
+    public void deposit (double amount){
+
+        super.deposit(amount);
 
     }
 
     public String getType(){
 
-        return ACCOUNT_TYPE;
+        return super.getType();
 
     }
 
@@ -84,19 +97,13 @@ public class MoneyMarket extends Savings {
 
             return NO_FEE;
 
-        }
-        if (this.balance >= BALANCE_IF_WAIVED && withdrawCount > 3){
-
+        }else {
+            //(this.balance >= BALANCE_IF_WAIVED && withdrawCount > 3)
             return MONTHLY_FEE;
 
-
         }
 
-
     }
-
-
-
 
 }
 //By default, it is a loyal customer account

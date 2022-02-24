@@ -64,21 +64,4 @@ public class Profile {
 
     }
 
-    public static void main(String[] args){
-
-        /*Date test1 = new Date("1/4/1996");
-        Date test2 = new Date("1/4/1996");
-
-        Profile testProfile1 = new Profile("Mark","Holleran", test1);
-        Profile testProfile2 = new Profile("Mark", "Holleran", test2);
-
-        System.out.println(testProfile1.toString());
-        System.out.println(testProfile2.toString());
-
-        System.out.println(testProfile1.equals(testProfile2));
-
-
-         */
-
-    }
 }

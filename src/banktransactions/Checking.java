@@ -7,11 +7,12 @@ public class Checking extends Account {
     public static final double BALANCE_IF_WAIVED = 1000;
     public static final String ACCOUNT_TYPE = "Checking";
 
-
     public Checking(Profile profile, double balance){
 
         super.holder = profile;
+
         super.closed = false;
+
         super.deposit(balance);
 
     }
@@ -37,13 +38,16 @@ public class Checking extends Account {
     }
 
     public void withdraw(double amount){
+
         super.withdraw(amount);
+
     }
 
     public void deposit(double amount){
-        super.deposit(amount);
-    }
 
+        super.deposit(amount);
+
+    }
 
     public String getType(){
 
