@@ -16,9 +16,15 @@ public abstract class Account {
     protected double balance;
 
     @Override
-    public boolean equals(Object obj){}
+    public boolean equals(Object obj){
+        Account acct = (Account) obj;
+        return (this.closed == acct.closed) && (this.balance == acct.balance) && (this.holder.equals(acct.holder));
+    }
     @Override
-    public String toString(){}
+    public String toString(){
+
+        return "";
+    }
 
     public void withdraw(double amount){}
     public void deposit(double amount){}
