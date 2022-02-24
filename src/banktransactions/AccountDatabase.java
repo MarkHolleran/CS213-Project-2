@@ -1,3 +1,5 @@
+/*
+
 package banktransactions;
 
 public class AccountDatabase {
@@ -17,7 +19,10 @@ public class AccountDatabase {
     private Account[] accounts;
     private int numAcct;
 
-    private int find(Account account){}
+    private int find(Account account){
+        int a = 12;
+        return a;
+    }
     private void grow(){}
     public boolean open(Account account){}
     public boolean close(Account account){}
@@ -41,17 +46,3 @@ public class AccountDatabase {
      *
      * @param args Commandline arguments
      */
-    public static void main(String[] args){
-
-        //Test 1 :
-        //Test 2 :
-        //Test 3 :
-        //Test 4 :
-        //Test 5 :
-        //Test 6 :
-        //Test 7 :
-
-
-
-    }
-}

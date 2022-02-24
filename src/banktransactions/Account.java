@@ -1,6 +1,6 @@
 package banktransactions;
 
-//import java.text.DecimalFormat;
+import java.text.DecimalFormat;
 
 public abstract class Account {
 
@@ -19,17 +19,19 @@ public abstract class Account {
 
     @Override
     public boolean equals(Object obj){
+        //i think this compares two accounts
 
-        boolean a;
-        return a;
-
+        boolean f = true;
+        return f;
 
     }
+
+
     @Override
     public String toString(){
 
-        String a = new String();
-        return a;
+        return getType() + "::" + holder.toString() + "::" + "Balance " + "$" + balance;
+
     }
 
     public void withdraw(double amount){
@@ -39,11 +41,12 @@ public abstract class Account {
     }
     public void deposit(double amount){
 
-       // DecimalFormat twoDeciFormat = new DecimalFormat("#.##");
-        //  balance = Integer.parseInt(twoDeciFormat.format(balance + amount));
-        //how to display in 2 decimal format
+       DecimalFormat twoDeciFormat = new DecimalFormat("#.##");
+       double depositAmount = Double.parseDouble(twoDeciFormat.format(amount));
+       balance = Double.parseDouble(twoDeciFormat.format(balance + depositAmount));
 
-        balance = balance + amount;
+        System.out.println(balance);
+        //how to display in 2 decimal format
 
     }
 
