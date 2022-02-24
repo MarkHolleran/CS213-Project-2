@@ -46,7 +46,8 @@ public class Profile {
      */
     public boolean equals(Profile compareProfile){
 
-        return (this.fname.equals(compareProfile.fname) && this.lname.equals(compareProfile.lname) && this.dob.compareTo(compareProfile.dob) == 0);
+        return (this.fname.equals(compareProfile.fname) && this.lname.equals(compareProfile.lname)
+                && this.dob.compareTo(compareProfile.dob) == 0);
 
     }
 

@@ -1,90 +1,29 @@
-
 package banktransactions;
 
 public class Savings extends Account {
-    //account dfines
-    //profile holder
-    //boolean closed
-    //double balance
 
-    //equals method
-    //tostring method
-
-    //withdraw
-    //deposit
-    //return monthly interest
-    //return monthly fee
-    //return account type (class name)
-
-    protected int loyalCustomer;
-    //protected int monthlyFee;
-    protected int monthlyFeeAvoidanceThreshold = 300;
-
-    //protected double annualInterestRate;
-    //loyality is either 0 or 1
-
-
-
-    public Savings(Profile profile, boolean closed, double balance, int loyalCustomer ){
-
-        //first last dob init deposit loyal or not
-
-        super.holder = profile;
-        super.closed = closed;
-        super.deposit(balance);
-        this.loyalCustomer = loyalCustomer;
-
-
-
-
-    }
-    @Override
-    public String getType(){
-
-        return "Savings";
-
-    }
-    @Override
-    public double fee() {
-
-        return 6;
-        //does this could as a magic number?
-
-    }
+    public static final double NO_FEE = 0;
+    public static final double MONTHLY_SAVINGS_FEE = 6;
+    public static final double INTEREST_RATE_PERCENTAGE = 0.3/100;
+    public static final double BALANCE_IF_WAIVED = 300;
+    public static final String ACCOUNT_TYPE = "SAVINGS";
 
     public double monthlyInterest(){
-
-        return .3;
-
-
+        return this.balance + this.balance*INTEREST_RATE_PERCENTAGE;
     }
 
-    @Override
-    public String toString(){
-
-        if (loyalCustomer == 0){
-
-            return super.toString();
-
-        }else   {
-
-            return super.toString() + "::" + "loyal";
+    public double fee(){
+        if(this.balance>=BALANCE_IF_WAIVED){
+            return NO_FEE;
+        }else{
+            return MONTHLY_SAVINGS_FEE;
         }
-
     }
 
-    public static void main(String[] args){
-
-        Date newdate = new Date("4/4/1680");
-
-        Profile newprofile = new Profile("Mark","Holleran",newdate);
-
-        Savings newsavings = new Savings(newprofile, false, 100.3, 1);
-
-            System.out.println(newsavings.toString());
-
-            System.out.println(newsavings.getType());
-
+    public String getType(){
+        return ACCOUNT_TYPE;
     }
+
+
 
 }

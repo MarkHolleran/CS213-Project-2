@@ -1,8 +1,11 @@
 package banktransactions;
 
+//import java.text.DecimalFormat;
+
 import java.text.DecimalFormat;
 
 public abstract class Account {
+
 
     //abstract class
     //defines common data and operations for all account types
@@ -19,35 +22,28 @@ public abstract class Account {
 
     @Override
     public boolean equals(Object obj){
-        //i think this compares two accounts
-
-        boolean f = true;
-        return f;
-
+        Account acct = (Account) obj;
+        return (this.closed == acct.closed) && (this.balance == acct.balance) && (this.holder.equals(acct.holder));
     }
-
-
     @Override
     public String toString(){
+        DecimalFormat dformat = new DecimalFormat("$#,###.##");
+        //Checking::April March 1/15/1987::Balance $0.00::CLOSED
+        StringBuilder sb = new StringBuilder(holder.toString() + "::Balance $" + dformat.format(balance));
 
-        return getType() + "::" + holder.toString() + "::" + "Balance " + "$" + balance;
+        if(closed){
+            sb.append("::CLOSED");
+        }
 
+        return sb.toString();
     }
 
     public void withdraw(double amount){
-
-       balance = balance - amount;
-
+        balance -= amount;
     }
+
     public void deposit(double amount){
-
-       DecimalFormat twoDeciFormat = new DecimalFormat("#.##");
-       double depositAmount = Double.parseDouble(twoDeciFormat.format(amount));
-       balance = Double.parseDouble(twoDeciFormat.format(balance + depositAmount));
-
-        System.out.println(balance);
-        //how to display in 2 decimal format
-
+        balance += amount;
     }
 
     //these three are applicable to the 4 account types
