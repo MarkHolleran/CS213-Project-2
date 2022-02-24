@@ -20,8 +20,13 @@ public abstract class Account {
 
     @Override
     public boolean equals(Object obj){
-        Account acct = (Account) obj;
-        return (this.closed == acct.closed) && (this.balance == acct.balance) && (this.holder.equals(acct.holder));
+
+        if(obj instanceof Account){
+            Account acct = (Account) obj;
+            return (this.closed == acct.closed) && (this.balance == acct.balance) && (this.holder.equals(acct.holder));
+
+        }
+         return false;
     }
     @Override
     public String toString(){
