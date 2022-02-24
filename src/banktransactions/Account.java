@@ -1,5 +1,7 @@
 package banktransactions;
 
+//import java.text.DecimalFormat;
+
 public abstract class Account {
 
     //abstract class
@@ -26,8 +28,7 @@ public abstract class Account {
         return "";
     }
 
-    public void withdraw(double amount){}
-    public void deposit(double amount){}
+    }
 
     //these three are applicable to the 4 account types
     public abstract double monthlyInterest(); //return monthly interest
