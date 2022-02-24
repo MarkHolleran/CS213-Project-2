@@ -1,22 +1,26 @@
 package banktransactions;
 
 public class Checking extends Account {
-    //so all of the thing we can do in Account are able to be done to checking
 
-    Checking newChecking = new Checking();
-    newChecking.deposit(12.2);
-    //extends the Account class
-    //includes specific data and operations to a regular checking account
+    public static final double monthlyFee = 25;
+    public static final double interestRatePercentage = 0.1/100;
+    public static final double balanceIfWaived = 1000;
+    public static final String accountType = "CHECKING";
 
+    public double monthlyInterest(){
+        return this.balance + this.balance*interestRatePercentage;
+    }
 
+    public double fee(){
+        if(this.balance>=balanceIfWaived){
+            return 0;
+        }else{
+            return monthlyFee;
+        }
+    }
 
-
-
-
-
-
-
-    //think we're using super.method to use methods from the account class in the checking class
-
+    public String getType(){
+        return accountType;
+    }
 
 }

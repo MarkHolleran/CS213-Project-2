@@ -2,6 +2,8 @@ package banktransactions;
 
 //import java.text.DecimalFormat;
 
+import java.text.DecimalFormat;
+
 public abstract class Account {
 
     //abstract class
@@ -24,10 +26,15 @@ public abstract class Account {
     }
     @Override
     public String toString(){
+        DecimalFormat dformat = new DecimalFormat("$#,##0.00");
+        //Checking::April March 1/15/1987::Balance $0.00::CLOSED
+        StringBuilder sb = new StringBuilder(holder.toString() + "::Balance $" + dformat.format(balance));
 
-        return "";
-    }
+        if(closed){
+            sb.append("::CLOSED");
+        }
 
+        return sb.toString();
     }
 
     //these three are applicable to the 4 account types
