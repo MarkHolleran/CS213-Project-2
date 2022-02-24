@@ -19,7 +19,7 @@ public class Checking extends Account {
             return MONTHLY_CHECKING_FEE;
         }
     }
-
+ //
     public String getType(){
         return ACCOUNT_TYPE;
     }
