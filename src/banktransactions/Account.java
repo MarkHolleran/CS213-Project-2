@@ -6,6 +6,7 @@ import java.text.DecimalFormat;
 
 public abstract class Account {
 
+
     //abstract class
     //defines common data and operations for all account types
 
@@ -26,7 +27,7 @@ public abstract class Account {
     }
     @Override
     public String toString(){
-        DecimalFormat dformat = new DecimalFormat("$#,##0.00");
+        DecimalFormat dformat = new DecimalFormat("$#,###.##");
         //Checking::April March 1/15/1987::Balance $0.00::CLOSED
         StringBuilder sb = new StringBuilder(holder.toString() + "::Balance $" + dformat.format(balance));
 
@@ -35,6 +36,14 @@ public abstract class Account {
         }
 
         return sb.toString();
+    }
+
+    public void withdraw(double amount){
+        balance -= amount;
+    }
+
+    public void deposit(double amount){
+        balance += amount;
     }
 
     //these three are applicable to the 4 account types
