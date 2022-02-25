@@ -30,7 +30,6 @@ public abstract class Account {
 
         DecimalFormat dformat = new DecimalFormat("#,##0.00");
 
-        //Checking::April March 1/15/1987::Balance $0.00::CLOSED
 
         StringBuilder sb = new StringBuilder(getType() + "::" + holder.toString() + "::Balance $" + dformat.format(balance));
 

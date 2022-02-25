@@ -54,9 +54,9 @@ public class CollegeChecking extends Checking {
 
     }
 
-    public double fee(){
+    public double fee() {
 
-       return super.fee();
+        return super.fee();
 
     }
 
