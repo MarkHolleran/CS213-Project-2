@@ -14,7 +14,7 @@ public class MoneyMarket extends Savings {
     public final double NONLOYAL_INTEREST_RATE_PERCENTAGE = 0.8/100;
     public final double LOYAL_INTEREST_RATE_PERCENTAGE = 0.95/100;
     public int withdrawCount = 0;
-    public int MAX_WITHDRAWLIMIT = 3;
+    public int MAX_WITHDRAW_LIMIT = 3;
 
     public final double BALANCE_IF_WAIVED = 2500;
     public static final String ACCOUNT_TYPE = "Money Market Savings";
@@ -70,7 +70,7 @@ public class MoneyMarket extends Savings {
 
         withdrawCount++;
 
-        if (this.withdrawCount > MAX_WITHDRAWLIMIT){
+        if (this.withdrawCount > MAX_WITHDRAW_LIMIT){
 
             loyalCustomer = 0;
 
@@ -104,6 +104,12 @@ public class MoneyMarket extends Savings {
         }
 
     }
+
+
+    public static void main(String[] args){
+
+    }
+
 
 }
 //By default, it is a loyal customer account
