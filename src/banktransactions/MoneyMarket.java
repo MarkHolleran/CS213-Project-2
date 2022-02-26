@@ -106,9 +106,10 @@ public class MoneyMarket extends Savings {
 
         Date date = new Date("8/10/2002");
         Profile profile = new Profile("Abhitej","Bokka",date);
-        MoneyMarket mm = new MoneyMarket(profile,100);
+        MoneyMarket mm = new MoneyMarket(profile,3200);
 
         System.out.println(mm.getType());
+        System.out.println(mm.loyalCustomer);
     }
 
 }
