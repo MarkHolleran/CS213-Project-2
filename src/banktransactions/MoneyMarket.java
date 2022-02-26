@@ -15,7 +15,7 @@ public class MoneyMarket extends Savings {
     public final double MM_LOYAL_INTEREST_RATE_PERCENTAGE = 0.15/100;
     public static final int DEFAULT_LOYALTY = 1;
     public int withdrawCount = 0;
-    public int MAX_WITHDRAWLIMIT = 3;
+    public int MAX_WITHDRAW_LIMIT = 3;
 
     public final double BALANCE_IF_WAIVED = 2500;
     public static final String ACCOUNT_TYPE = "Money Market Savings";
@@ -67,7 +67,7 @@ public class MoneyMarket extends Savings {
 
         withdrawCount++;
 
-        if (this.withdrawCount > MAX_WITHDRAWLIMIT){
+        if (this.withdrawCount > MAX_WITHDRAW_LIMIT){
 
             loyalCustomer = 0;
 
