@@ -1,4 +1,4 @@
-/*
+
 
 package banktransactions;
 
@@ -16,27 +16,161 @@ public class AccountDatabase {
 
     //can add additional methods but all the publci ones must take a single parameter or no paremeters
 
+    public static final int NOT_FOUND = -1;
+
     private Account[] accounts;
     private int numAcct;
 
-    private int find(Account account){
-        int a = 12;
-        return a;
+    public AccountDatabase(){
+        this.accounts = new Account[4];
+        this.numAcct = 0;
+
     }
-    private void grow(){}
-    public boolean open(Account account){}
-    public boolean close(Account account){}
-    public void deposit(Account account){}
-    public void withdraw(Account account){}
-    public void print(){}
-    public void printByAccountType(){}
-    public void printFeeAndInterest(){}
 
-    
+    private int find(Account account) {
+        for(int i = 0; i<numAcct; i++){
+            if(accounts[i].equals(account)){
+
+                return i;
+
+            }
+        }
+        return NOT_FOUND;
+    }
+
+    public boolean findAcct(Account acct){
+
+        for(int i = 0; i < numAcct; i++){
+
+            if(accounts[i].equals(acct)){
+
+                return true;
+
+            }
+
+        }
+
+        return false;
+
+    }
+
+    public boolean findProfile(Profile profile){
+
+        for(int i = 0; i < numAcct; i++){
+
+            if(accounts[i].getProfile().equals(profile)){
+
+                return true;
+
+            }
+
+        }
+
+        return false;
+
+    }
 
 
+    /**
+     * Increases array length of Account array by 4
+     * once the array is full
+     */
+    private void grow() {
 
+        int resizedLength = accounts.length+4;
 
+        Account[] resizedArray = new Account[resizedLength];
+
+        for(int i = 0; i < numAcct; i++){
+
+            resizedArray[i] = accounts[i];
+
+        }
+        accounts = resizedArray;
+
+    }
+
+    public boolean open(Account account) {
+
+        if(findAcct(account) && !account.closed){
+            return false;
+        }
+
+        if(findAcct(account) && account.closed){
+            int index = find(account);
+            accounts[index] = account;
+            accounts[index].closed = false;
+            return true;
+        }
+
+        if(find(account) == NOT_FOUND){
+            accounts[numAcct] = account;
+            accounts[numAcct].closed = false;
+            return true;
+        }
+
+        return false;
+    }
+
+    public boolean close(Account account) {
+
+        if(find(account) != NOT_FOUND){
+            int index = find(account);
+            accounts[index].closed = true;
+            return true;
+        }
+
+        return false;
+    }
+
+    public void deposit(Account account) {
+        if(find(account) != NOT_FOUND){
+            int index = find(account);
+            accounts[index].deposit(account.balance);
+
+        }
+        return;
+    }
+
+    public boolean withdraw(Account account) {
+        if(find(account) != NOT_FOUND){
+            int index = find(account);
+            if(account.balance > accounts[index].balance){
+                return false;
+            }else{
+                accounts[index].withdraw(account.balance);
+                return true;
+            }
+        }
+        return false;
+    }//return false if insufficient fund
+
+    public void print() {
+        for(int i = 0; i<numAcct; i++){
+            System.out.println(this.accounts[i].toString());
+        }
+    }
+
+    public void printByAccountType() {
+        int n = numAcct;
+
+        for(int i = 0; i < n; ++i){
+            Account key = accounts[i];
+            int j = i - 1;
+
+            while(j>=0 && accounts[j].getType().compareTo(key.getType()) > 0 ){
+                accounts[j + 1] = accounts[j];
+                j = j - 1;
+            }
+            accounts[j + 1] = key;
+        }
+        print();
+        System.out.println("*end of list.");
+        System.out.println();
+    }
+
+    public void printFeeAndInterest() {
+    }
 
 
 //have to do JUnit test for this
@@ -46,3 +180,4 @@ public class AccountDatabase {
      *
      * @param args Commandline arguments
      */
+}

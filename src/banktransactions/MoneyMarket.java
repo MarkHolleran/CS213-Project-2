@@ -67,7 +67,7 @@ public class MoneyMarket extends Savings {
 
         withdrawCount++;
 
-        if (this.withdrawCount > MAX_WITHDRAW_LIMIT){
+        if (this.balance < BALANCE_IF_WAIVED){
 
             loyalCustomer = 0;
 
@@ -90,8 +90,8 @@ public class MoneyMarket extends Savings {
     @Override
     public double fee(){
 
-        if (this.balance >=BALANCE_IF_WAIVED && withdrawCount <= 3){
-
+        if (withdrawCount < MAX_WITHDRAW_LIMIT){
+        // wording is confusing here
             return NO_FEE;
 
         }else {
@@ -102,6 +102,7 @@ public class MoneyMarket extends Savings {
 
     }
 
+    /*
     public static void main(String[] args){
 
         Date date = new Date("8/10/2002");
@@ -111,6 +112,7 @@ public class MoneyMarket extends Savings {
         System.out.println(mm.getType());
         System.out.println(mm.loyalCustomer);
     }
+    */
 
 }
 //By default, it is a loyal customer account

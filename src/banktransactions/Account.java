@@ -18,8 +18,8 @@ public abstract class Account {
 
             Account acct = (Account) obj;
 
-            return (this.closed == acct.closed) && (this.balance == acct.balance) && (this.holder.equals(acct.holder));
-
+            return (this.holder.equals(acct.holder) && this.getType().equals(acct.getType()));
+            //took out (this.closed == acct.closed) for open() in acctDB
         }
 
         return false;
@@ -51,6 +51,10 @@ public abstract class Account {
 
         balance += amount;
 
+    }
+
+    public Profile getProfile(){
+        return holder;
     }
 
     public abstract double monthlyInterest(); //return monthly interest
