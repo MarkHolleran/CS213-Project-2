@@ -11,8 +11,9 @@ public class MoneyMarket extends Savings {
 
     public final double NO_FEE = 0;
     public final double MONTHLY_FEE = 10;
-    public final double NONLOYAL_INTEREST_RATE_PERCENTAGE = 0.8/100;
-    public final double LOYAL_INTEREST_RATE_PERCENTAGE = 0.95/100;
+    public final double MM_ADDITIONAL_INTEREST_RATE_PERCENTAGE = 0.5/100;
+    public final double MM_LOYAL_INTEREST_RATE_PERCENTAGE = 0.15/100;
+    public static final int DEFAULT_LOYALTY = 1;
     public int withdrawCount = 0;
     public int MAX_WITHDRAWLIMIT = 3;
 
@@ -31,8 +32,14 @@ public class MoneyMarket extends Savings {
     public MoneyMarket(Profile profile, double balance){
         //moneymarket account is loyal by default
 
-        super(profile,balance,1);
-        //does this count as a magic number?
+        super(profile, balance, DEFAULT_LOYALTY);
+
+        if(balance >= BALANCE_IF_WAIVED){
+            loyalCustomer = 1;
+        }else{
+            loyalCustomer = 0;
+        }
+       
         super.closed = false;
 
     }
@@ -40,27 +47,17 @@ public class MoneyMarket extends Savings {
     @Override
     public double monthlyInterest() {
 
+        double newTotal = super.monthlyInterest() + this.balance * MM_ADDITIONAL_INTEREST_RATE_PERCENTAGE;
 
-        //if balance falls below 2500 then no longer loyal and interest goes to .80
-        //if balance is above 2500 then customer remains loyal and interest stays at .95
-
-        if (this.balance > BALANCE_IF_WAIVED) {
-            //if balance is greater than threshold
-            return this.balance +this.balance*LOYALINTEREST_RATE_PERCENTAGE;
-
-        }else {
-                //means balance is less than the threshold
-            loyalCustomer = 0;
-            //loyalcustomer revoked
-
-            return this.balance + this.balance*NONLOYAL_INTEREST_RATE_PERCENTAGE;
-
-            //not sure if this will return the interest rates for this one
-
-            //return this.balance + this.balance*INTEREST_RATE_PERCENTAGE;
-
+        if(loyalCustomer == 1){
+            newTotal += this.balance * MM_LOYAL_INTEREST_RATE_PERCENTAGE;
         }
 
+        if(newTotal >= BALANCE_IF_WAIVED){
+            loyalCustomer = 1;
+        }
+
+        return newTotal;
     }
 
 
@@ -86,7 +83,7 @@ public class MoneyMarket extends Savings {
 
     public String getType(){
 
-        return super.getType();
+        return ACCOUNT_TYPE;
 
     }
 
@@ -103,6 +100,15 @@ public class MoneyMarket extends Savings {
 
         }
 
+    }
+
+    public static void main(String[] args){
+
+        Date date = new Date("8/10/2002");
+        Profile profile = new Profile("Abhitej","Bokka",date);
+        MoneyMarket mm = new MoneyMarket(profile,100);
+
+        System.out.println(mm.getType());
     }
 
 }

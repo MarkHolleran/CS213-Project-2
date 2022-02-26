@@ -4,7 +4,7 @@ public class CollegeChecking extends Checking {
 
     //public final double NO_FEE = 0;
     public final double MONTHLY_FEE = 0;
-    public final double INTEREST_RATE_PERCENTAGE = .25/100;
+    public final double ADDITONAL_INTEREST_RATE_PERCENTAGE = .15/100;
     public final int CAMPUS_ZERO = 0;
     public final int CAMPUS_ONE = 1;
     public final int CAMPUS_TWO = 2;
@@ -32,7 +32,7 @@ public class CollegeChecking extends Checking {
 
     public double monthlyInterest(){
 
-        return super.monthlyInterest();
+        return super.monthlyInterest() + this.balance * ADDITONAL_INTEREST_RATE_PERCENTAGE;
 
     }
 
@@ -50,7 +50,7 @@ public class CollegeChecking extends Checking {
 
     public String getType(){
 
-        return super.getType();
+        return ACCOUNT_TYPE;
 
     }
 
