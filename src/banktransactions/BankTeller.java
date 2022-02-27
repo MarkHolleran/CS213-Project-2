@@ -14,6 +14,8 @@ public class BankTeller {
     public static final int OPEN_M_MARKET_ARGS = 4;
     public static final int LOYAL_SAVINGS = 0;
     public static final int NON_LOYAL_SAVINGS = 1;
+    public static final int CLOSE_ACCT_ARGS_MIN = 4;
+    public static final int NOT_FOUND = -1;
     public static final int INVALID_DEPOSIT = -1;
     public static final int CAMPUS_CODE_MIN = 0;
     public static final int CAMPUS_CODE_MAX = 2;
@@ -26,6 +28,38 @@ public class BankTeller {
             balance = Double.parseDouble(deposit);
             if(balance <= 0){
                 System.out.println("Initial deposit cannot be 0 or negative.");
+                return INVALID_DEPOSIT;
+            }else{
+                return balance;
+            }
+        }catch(Exception e) {
+            System.out.println("Not a valid amount.");
+            return INVALID_DEPOSIT;
+        }
+    }
+
+    private double validOtherDeposit(String deposit){
+        double balance;
+        try{
+            balance = Double.parseDouble(deposit);
+            if(balance <= 0){
+                System.out.println("Deposit - amount cannot be 0 or negative.");
+                return INVALID_DEPOSIT;
+            }else{
+                return balance;
+            }
+        }catch(Exception e) {
+            System.out.println("Not a valid amount.");
+            return INVALID_DEPOSIT;
+        }
+    }
+
+    private double validWithdraw(String deposit){
+        double balance;
+        try{
+            balance = Double.parseDouble(deposit);
+            if(balance <= 0){
+                System.out.println("Withdraw - amount cannot be 0 or negative.");
                 return INVALID_DEPOSIT;
             }else{
                 return balance;
@@ -83,30 +117,7 @@ public class BankTeller {
             System.out.println("Invalid Command!");
         }
     }
-    /*
-    private void executeCommandCaseC(StringTokenizer segmentedInput, AccountDatabase database){
-        //john doe dob
-        String fName = segmentedInput.nextToken();
-        String lName = segmentedInput.nextToken();
-        String dob = segmentedInput.nextToken();
-        double emptyBalance = 0;
-        Date date = new Date(dob);
 
-        if(!date.isValid()){
-            System.out.println("Date of birth invalid.");
-            return;
-        }
-
-        Profile profile = new Profile(fName, lName, date);
-        Checking checking = new Checking(profile, emptyBalance);
-        if(!database.open(checking)){
-            System.out.println(profile.toString()+ " same account(type) is in the database.");
-            return;
-        }
-
-
-    }
-    */
     private void executeCommandCaseC(StringTokenizer segmentedInput, AccountDatabase database){
         //john doe dob 100
         String fName = segmentedInput.nextToken();
@@ -116,16 +127,27 @@ public class BankTeller {
 
         Date date = new Date(dob);
 
+
         if(!date.isValid()){
             System.out.println("Date of birth invalid.");
             return;
         }
         if(validDeposit(deposit)!=INVALID_DEPOSIT){
             Profile profile = new Profile(fName, lName, date);
+
             Checking checking = new Checking(profile, validDeposit(deposit));
+            boolean attempt = false;
+            if(checking.closed){
+                attempt = true;
+            }
             if(!database.open(checking)){
                 System.out.println(profile.toString()+ " same account(type) is in the database.");
                 return;
+            }
+            if(database.findAcct(checking) && attempt){
+                System.out.println("Account reopened.");
+            }else{
+                System.out.println("Account opened.");
             }
 
         }
@@ -141,7 +163,7 @@ public class BankTeller {
 
         try{
             campusCode = Integer.parseInt(campus);
-            if(campusCode < CAMPUS_CODE_MIN && campusCode > CAMPUS_CODE_MAX){
+            if(campusCode < CAMPUS_CODE_MIN || campusCode > CAMPUS_CODE_MAX){
                 System.out.println("Invalid campus code.");
                 return;
             }
@@ -159,9 +181,18 @@ public class BankTeller {
         if(validDeposit(deposit)!=INVALID_DEPOSIT){
             Profile profile = new Profile(fName, lName, date);
             CollegeChecking checking = new CollegeChecking(profile, validDeposit(deposit), campusCode);
+            boolean attempt = false;
+            if(checking.closed){
+                attempt = true;
+            }
             if(!database.open(checking)){
                 System.out.println(profile.toString()+ " same account(type) is in the database.");
                 return;
+            }
+            if(database.findAcct(checking) && attempt){
+                System.out.println("Account reopened.");
+            }else{
+                System.out.println("Account opened.");
             }
 
         }
@@ -195,9 +226,18 @@ public class BankTeller {
         if(validDeposit(deposit)!=INVALID_DEPOSIT){
             Profile profile = new Profile(fName, lName, date);
             Savings savings = new Savings(profile, validDeposit(deposit), loyaltyCode);
+            boolean attempt = false;
+            if(savings.closed){
+                attempt = true;
+            }
             if(!database.open(savings)){
                 System.out.println(profile.toString()+ " same account(type) is in the database.");
                 return;
+            }
+            if(database.findAcct(savings) && attempt){
+                System.out.println("Account reopened.");
+            }else{
+                System.out.println("Account opened.");
             }
 
         }
@@ -219,6 +259,10 @@ public class BankTeller {
         if(validDeposit(deposit)!=INVALID_DEPOSIT){
             Profile profile = new Profile(fName, lName, date);
             MoneyMarket moneyMarket = new MoneyMarket(profile, validDeposit(deposit));
+            boolean attempt = false;
+            if(moneyMarket.closed){
+                attempt = true;
+            }
             if(validDeposit(deposit)<2500){
                 System.out.println("Minimum of $2500 to open a MoneyMarket account.");
                 return;
@@ -227,20 +271,152 @@ public class BankTeller {
                 System.out.println(profile.toString()+ " same account(type) is in the database.");
                 return;
             }
+            if(database.findAcct(moneyMarket) && attempt){
+                System.out.println("Account reopened.");
+            }else{
+                System.out.println("Account opened.");
+            }
 
         }
     }
 
-    private void tryCommandC(StringTokenizer segmentedInput, AccountDatabase database){
+    // DONE WITH OPEN
 
+    private String getAccountType(String cmd){
+        if(cmd.equals("C")){
+            return "Checking";
+        }
+        if(cmd.equals("CC")){
+            return "College Checking";
+        }
+        if(cmd.equals("S")){
+            return "Savings";
+        }
+        if(cmd.equals("MM")){
+            return "Money Market Savings";
+        }
+
+        return "Crash";
+
+    }
+
+    private void tryCommandC(StringTokenizer segmentedInput, AccountDatabase database){
+        if (segmentedInput.countTokens() == CLOSE_ACCT_ARGS_MIN) {
+            try {
+
+                String accountType = segmentedInput.nextToken();
+                String fName = segmentedInput.nextToken();
+                String lName = segmentedInput.nextToken();
+                String dob = segmentedInput.nextToken();
+                Date date = new Date(dob);
+                Profile profile = new Profile(fName, lName, date);
+                Profile profile2 = new Profile("fName", lName, date);
+                String type = getAccountType(accountType);
+
+                if(database.cancellation(profile, type) != NOT_FOUND){
+                    int index = database.cancellation(profile, type);
+
+
+
+                    if(database.alreadyClosed(index)){
+                        Checking acct = new Checking(profile2, 10000);
+                        database.close(acct);
+                        System.out.println("Account is closed already.");
+                    }else{
+                        System.out.println("Account is closed");
+                    }
+                }
+
+
+            } catch (Exception e) {
+                System.out.println("Missing data for closing an account.");
+            }
+        } else {
+            System.out.println("Missing data for closing an account.");
+        }
+    }
+
+    private Account createAccount(Profile profile, String type, double balance){
+
+        if(type.equals("C")){
+            return new Checking(profile,balance);
+        }
+        if(type.equals("CC")){
+            return new CollegeChecking(profile,balance,0);
+        }
+        if(type.equals("S")){
+            return new Savings(profile,balance,0);
+        }
+        if(type.equals("MM")){
+            return new MoneyMarket(profile,balance);
+        }
+
+        return null;
     }
 
     private void tryCommandD(StringTokenizer segmentedInput, AccountDatabase database){
+        if (segmentedInput.countTokens() == DEPOSIT_OR_WITHDRAW_NUM_ARGUMENTS) {
+            try {
+                String accountType = segmentedInput.nextToken();
+                String fName = segmentedInput.nextToken();
+                String lName = segmentedInput.nextToken();
+                String dob = segmentedInput.nextToken();
+                String deposit = segmentedInput.nextToken();
+                Date date = new Date(dob);
+                String type = getAccountType(accountType);
+                Profile profile = new Profile(fName, lName, date);
 
+                if(!database.findProfile(profile)){
+                    System.out.println(profile.toString() + " " + type + " is not in the database.");
+                    return;
+                }
+
+                if(validOtherDeposit(deposit) != INVALID_DEPOSIT){
+                    Account acct = createAccount(profile, accountType, validOtherDeposit(deposit));
+                    database.deposit(acct);
+                }
+
+
+            } catch (Exception e) {
+                System.out.println("Missing data for closing an account.");
+            }
+        } else {
+            System.out.println("Missing data for closing an account.");
+        }
     }
 
     private void tryCommandW(StringTokenizer segmentedInput, AccountDatabase database){
+        if (segmentedInput.countTokens() == DEPOSIT_OR_WITHDRAW_NUM_ARGUMENTS) {
+            try {
+                String accountType = segmentedInput.nextToken();
+                String fName = segmentedInput.nextToken();
+                String lName = segmentedInput.nextToken();
+                String dob = segmentedInput.nextToken();
+                String deposit = segmentedInput.nextToken();
+                Date date = new Date(dob);
+                String type = getAccountType(accountType);
+                Profile profile = new Profile(fName, lName, date);
 
+                if(!database.findProfile(profile)){
+                    System.out.println(profile.toString() + " " + type + " is not in the database.");
+                    return;
+                }
+
+                if(validWithdraw(deposit) != INVALID_DEPOSIT){
+                    Account acct = createAccount(profile, accountType, validWithdraw(deposit));
+                    if(database.withdraw(acct)){
+                        System.out.println("Withdraw - balance updated.");
+                    }else{
+                        System.out.println("Withdraw - insufficient fund.");
+                    }
+                }
+
+            } catch (Exception e) {
+                System.out.println("Missing data for closing an account.");
+            }
+        } else {
+            System.out.println("Missing data for closing an account.");
+        }
     }
 
 
@@ -250,77 +426,17 @@ public class BankTeller {
 
             case "O":
                 tryCommandO(segmentedInput, database);
-
-
-                //O command: Opens account
-
-                //C regular checking
-                //25$ monthly fee if balance is < 1000$
-                //annual interest rate of .1%
-                //EX: O C John Doe 2/19/1989
-                //CC College checking
-                // 0$ monthly fee
-                //annual interest rate of .25%
-                //for rutgers students only.. have to provide campus code 0=NB 1=newark 2=camden
-                //if person has a checking account.. cannot open college checking cus they can only hav 1 checking acc
-                //EX: O C Jane Doe 10/1/1995 599.99 0
-                //S Savings
-                //6$ monthly fee if balance is <300$
-                //annual interest rate of .3%
-                //loyal customer acc gets .45% interest rate total
-                //non loyal customer = 0 loyal customer = 1
-                //Money Market
-                //10$ monthly fee if balance is <2500
-                //requires inital deposit of at least 2500
-                //are set to loyal customer accounts by default?????
-                //if balance falls below 2500 the loyal customer account part goes away
-                //anual interst of .8% if non loyal customer and .95% if loyal
-                //fee cannot be waved if # of withdraws is greater than 3
-
-                //make sure dob is valid
-                //0 or neg initial deposits aren't allowed
-                //O command can also reopen closed accounts
-                //set the account to open again and update acc w new info provided
-
-
-
                 break;
-
             case "C":
                 tryCommandC(segmentedInput, database);
-
-                //C command: Closes Account
-                //set account balance to 0
-                //set loyal account to false
-                //doesnt reset campus code
-                //closed accounts can be reopened later w new deposit or campus code where applicable
-                //EX: C CC John Doe 2/19/1989
-
                 break;
-
-
-
             case "D":
                 tryCommandD(segmentedInput, database);
-
-                //D command: deposit
-                //deposit money into existing account
-                //reject deposit if ammount is 0 or negative
-                //EX: D MM Roy Brooks 10/31/1979 100.99
-
-
                 break;
             case "W":
                 tryCommandW(segmentedInput, database);
-
-                //W Command: withdraw
-                //withdraw money from existing account
-                //make sure there is enough money in account to withdraw entered amount
-                //EX: W CC John Doe 2/19/1989
-
                 break;
             case "P":
-
                 executeCommandP(database);
 
                 //P Command: print
@@ -361,24 +477,19 @@ public class BankTeller {
 
         }
 
-
-
-
-
     }
 
-
-
-    private void executeCommandD(StringTokenizer segmentedInput, AccountDatabase database){
-        //c john doe dob 100
-    }
-
-    private void executeCommandW(StringTokenizer segmentedInput, AccountDatabase database){
-        //c john doe dob 100
-    }
     private void executeCommandP(AccountDatabase database){
+        System.out.println();
+        System.out.println("*list of accounts in the database*");
+        database.print();
+        System.out.println("*end of list*");
+        System.out.println();
     }
     private void executeCommandPT(AccountDatabase database){
+        System.out.println();
+        System.out.println("*list of accounts by account type.");
+        database.printByAccountType();
     }
     private void executeCommandPI(AccountDatabase database){
     }

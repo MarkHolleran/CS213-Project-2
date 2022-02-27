@@ -38,6 +38,15 @@ public class AccountDatabase {
         return NOT_FOUND;
     }
 
+    public int cancellation(Profile profile, String type) {
+        for(int i = 0; i<numAcct; i++){
+            if(accounts[i].getProfile().equals(profile) && type.equals(accounts[i].getType())){
+                return i;
+            }
+        }
+        return NOT_FOUND;
+    }
+
     public boolean findAcct(Account acct){
 
         for(int i = 0; i < numAcct; i++){
@@ -52,6 +61,13 @@ public class AccountDatabase {
 
         return false;
 
+    }
+
+    public boolean alreadyClosed(int index){
+        if(accounts[index].closed){
+            return true;
+        }
+        return false;
     }
 
     public boolean findProfile(Profile profile){
@@ -125,6 +141,7 @@ public class AccountDatabase {
             int index = find(account);
             accounts[index] = account;
             accounts[index].closed = false;
+
             return true;
         }
 
