@@ -1,5 +1,7 @@
 package banktransactions;
 
+import java.util.Locale;
+
 /**
  * Class that stores date of birth, first name, and last name
  * The Profile object stores the first and last name as a String object
@@ -46,7 +48,8 @@ public class Profile {
      */
     public boolean equals(Profile compareProfile){
 
-        return (this.fname.equals(compareProfile.fname) && this.lname.equals(compareProfile.lname)
+        return (this.fname.toLowerCase().equals(compareProfile.fname.toLowerCase())
+                && this.lname.toLowerCase().equals(compareProfile.lname.toLowerCase())
                 && this.dob.compareTo(compareProfile.dob) == 0);
 
     }
