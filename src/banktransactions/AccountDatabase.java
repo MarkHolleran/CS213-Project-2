@@ -55,19 +55,21 @@ public class AccountDatabase {
     }
 
     public boolean findAcct(Account acct){
-
         for(int i = 0; i < numAcct; i++){
-
             if(accounts[i].equals(acct)){
-
                 return true;
-
             }
-
         }
-
         return false;
+    }
 
+    public Account findAccount(Account acct){
+        for(int i = 0; i < numAcct; i++){
+            if(accounts[i].equals(acct)){
+                return accounts[i];
+            }
+        }
+        return null;
     }
 
     public boolean alreadyClosed(int index){
@@ -140,21 +142,9 @@ public class AccountDatabase {
             return false;
         }
 
-        if(findAcct(account) && !account.closed){
-            return false;
-        }
-
-        if(findAcct(account) && account.closed){
-            int index = find(account);
-            accounts[index] = account;
-            accounts[index].closed = false;
-            numAcct++;
-            return true;
-        }
-
         if(find(account) == NOT_FOUND){
 
-            if(numAcct == this.accounts.length){
+            if(numAcct >= this.accounts.length){
                 this.grow();
             }
 
@@ -164,6 +154,23 @@ public class AccountDatabase {
             return true;
         }
 
+        if(findAcct(account) && !account.closed){
+            return false;
+        }
+
+        if(findAcct(account) && account.closed){
+
+            if(numAcct >= this.accounts.length){
+                this.grow();
+            }
+
+            int index = find(account);
+            accounts[index] = account;
+            accounts[index].closed = false;
+            return true;
+        }
+
+
         return false;
     }
 
@@ -172,6 +179,7 @@ public class AccountDatabase {
         if(find(account) != NOT_FOUND){
             int index = find(account);
             accounts[index].closed = true;
+            accounts[index].balance = 0;
             return true;
         }
 

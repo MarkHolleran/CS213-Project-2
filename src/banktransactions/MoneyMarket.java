@@ -11,7 +11,7 @@ public class MoneyMarket extends Savings {
 
     public final double NO_FEE = 0;
     public final double MONTHLY_FEE = 10;
-    public final double MM_ADDITIONAL_INTEREST_RATE_PERCENTAGE = 0.5/100;
+    public final double MM_ADDITIONAL_INTEREST_RATE_PERCENTAGE = 0.8/100;
     public final double MM_LOYAL_INTEREST_RATE_PERCENTAGE = 0.15/100;
     public static final int DEFAULT_LOYALTY = 1;
     public int withdrawCount = 0;
@@ -63,7 +63,7 @@ public class MoneyMarket extends Savings {
     @Override
     public double monthlyInterest() {
 
-        double newTotal = super.monthlyInterest() + this.balance * MM_ADDITIONAL_INTEREST_RATE_PERCENTAGE;
+        double newTotal = this.balance * MM_ADDITIONAL_INTEREST_RATE_PERCENTAGE;
 
         if(loyalCustomer == 1){
             newTotal += this.balance * MM_LOYAL_INTEREST_RATE_PERCENTAGE;

@@ -109,7 +109,7 @@ public class BankTeller {
                         System.out.println("Missing data for opening an account.");
                 }
             } catch (Exception e) {
-                System.out.println("Invalid Command!");
+                System.out.println("Invalid Command!-------------");
             }
 
         } else {
@@ -135,6 +135,22 @@ public class BankTeller {
             Profile profile = new Profile(fName, lName, date);
 
             Checking checking = new Checking(profile, validDeposit(deposit));
+            ///*
+            if(database.findAcct(checking)){
+                if(database.findAccount(checking).closed){
+                    checking.closed = true;
+                    database.open(checking);
+                    System.out.println("Account reopened.");
+                }else{
+                    checking.closed = false;
+                    System.out.println(profile.toString()+ " same account(type) is in the database.");
+                }
+            }else{
+                database.open(checking);
+                System.out.println("Account opened.");
+            }
+            //*/
+            /*
             boolean attempt = false;
             if(checking.closed){
                 attempt = true;
@@ -148,6 +164,7 @@ public class BankTeller {
             }else{
                 System.out.println("Account opened.");
             }
+            */
 
         }
     }
