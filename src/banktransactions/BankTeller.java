@@ -350,8 +350,6 @@ public class BankTeller {
                 String dob = segmentedInput.nextToken();
                 Date date = new Date(dob);
                 Profile profile = new Profile(fName, lName, date);
-                Profile profile2 = new Profile("fName", lName, date);
-                String type = getAccountType(accountType);
 
                 Account acct = createAccount(profile, accountType, 0);
 
@@ -468,9 +466,7 @@ public class BankTeller {
 
 
     private void parseCommands(StringTokenizer segmentedInput, AccountDatabase database){
-
         switch (segmentedInput.nextToken()){
-
             case "O":
                 tryCommandO(segmentedInput, database);
                 break;
@@ -485,47 +481,29 @@ public class BankTeller {
                 break;
             case "P":
                 executeCommandP(database);
-
-                //P Command: print
-                //display all accounts in the database in current order in array
-                //add 'closed' for the accounts that are closed
-                //account balances should be displayed with 2 decimal places
-
                 break;
             case "PT":
                 executeCommandPT(database);
-
-                //PT Command: print (ordered by account type)
-                //display all accounts in datebase in order of account type
-                //add 'closed' for accounts that are closed
-
                 break;
             case "PI":
                 executeCommandPI(database);
-
                 //PI Command: print
                 //display all accounts in the database with calculated fees and monthly interest based on current balance
                 //fees & interest should be displayed with 2 decimal places
-
                 break;
             case "UB":
                 executeCommandUB(database);
-
                 //UB Command: update balances
                 //update balances for all accounts with calculated fes and monthly interest
                 //display all accounts in the database with updated balances
-
-
                 break;
             case "Q":
                 break;
             default :
                 System.out.println("Invalid Command!");
-
         }
 
     }
-
     private void executeCommandP(AccountDatabase database){
         if(database.getNumAcct()==0){
             System.out.println("Account Database is empty!");
@@ -553,8 +531,8 @@ public class BankTeller {
             return;
         }
         System.out.println();
-        System.out.println("*list of accounts by account type.");
-        database.printByAccountType();
+        System.out.println("*list of accounts with fee and monthly interest");
+        database.printFeeAndInterest();
     }
     private void executeCommandUB(AccountDatabase database){
         //create method

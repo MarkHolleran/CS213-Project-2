@@ -18,8 +18,8 @@ public abstract class Account {
 
             Account acct = (Account) obj;
 
-            return (this.holder.equals(acct.holder) && this.getType().equals(acct.getType()));
-            //took out (this.closed == acct.closed) for open() in acctDB
+            return (this.holder.equals(acct.holder)
+                    && this.getType().equals(acct.getType()));
         }
 
         return false;

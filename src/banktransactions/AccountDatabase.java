@@ -2,6 +2,8 @@
 
 package banktransactions;
 
+import java.text.DecimalFormat;
+
 public class AccountDatabase {
 
     //array based container
@@ -236,7 +238,22 @@ public class AccountDatabase {
         System.out.println();
     }
 
+    private void calculate(Account account){
+
+    }
+
+
     public void printFeeAndInterest() {
+
+        for(int i = 0; i < numAcct; i++){
+            DecimalFormat dformat = new DecimalFormat("#,##0.00");
+            DecimalFormat dformat2 = new DecimalFormat("#,##0.00");
+            StringBuilder sb = new StringBuilder(accounts[i].toString());
+            sb.append("::fee $" + dformat.format(accounts[i].fee()) + "::monthly interest $" + dformat.format(accounts[i].fee())accounts[i].monthlyInterest());
+            System.out.println(sb);
+        }
+        System.out.println("*end of list.");
+        System.out.println();
     }
 
 
