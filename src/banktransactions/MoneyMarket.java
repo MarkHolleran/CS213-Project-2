@@ -45,6 +45,26 @@ public class MoneyMarket extends Savings {
     }
 
     @Override
+    public String toString(){
+        String add;
+        if(super.toString().contains("::Loyal") && loyalCustomer == 0){
+            
+        }else{
+            return super.toString() + "::withdrawal: " + withdrawCount;
+        }
+
+
+        if (loyalCustomer == 1) {
+
+            return super.toString() + "::Loyal";
+
+        }else
+
+            return super.toString();
+
+    }
+
+    @Override
     public double monthlyInterest() {
 
         double newTotal = super.monthlyInterest() + this.balance * MM_ADDITIONAL_INTEREST_RATE_PERCENTAGE;

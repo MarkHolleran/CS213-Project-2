@@ -27,6 +27,10 @@ public class AccountDatabase {
 
     }
 
+    public int getNumAcct(){
+        return this.numAcct;
+    }
+
     private int find(Account account) {
         for(int i = 0; i<numAcct; i++){
             if(accounts[i].equals(account)){
@@ -141,7 +145,7 @@ public class AccountDatabase {
             int index = find(account);
             accounts[index] = account;
             accounts[index].closed = false;
-
+            numAcct++;
             return true;
         }
 
@@ -153,6 +157,7 @@ public class AccountDatabase {
 
             accounts[numAcct] = account;
             accounts[numAcct].closed = false;
+            numAcct++;
             return true;
         }
 

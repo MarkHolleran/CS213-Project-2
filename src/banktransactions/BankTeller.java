@@ -106,15 +106,14 @@ public class BankTeller {
                         }
                         break;
                     default :
-                        System.out.println("Invalid Command!");
-
+                        System.out.println("Missing data for opening an account.");
                 }
             } catch (Exception e) {
                 System.out.println("Invalid Command!");
             }
 
         } else {
-            System.out.println("Invalid Command!");
+            System.out.println("Missing data for opening an account.");
         }
     }
 
@@ -480,6 +479,10 @@ public class BankTeller {
     }
 
     private void executeCommandP(AccountDatabase database){
+        if(database.getNumAcct()==0){
+            System.out.println("Account Database is empty!");
+            return;
+        }
         System.out.println();
         System.out.println("*list of accounts in the database*");
         database.print();
@@ -487,13 +490,28 @@ public class BankTeller {
         System.out.println();
     }
     private void executeCommandPT(AccountDatabase database){
+        if(database.getNumAcct()==0){
+            System.out.println("Account Database is empty!");
+            return;
+        }
         System.out.println();
         System.out.println("*list of accounts by account type.");
         database.printByAccountType();
     }
     private void executeCommandPI(AccountDatabase database){
+        if(database.getNumAcct()==0){
+            System.out.println("Account Database is empty!");
+            return;
+        }
+        System.out.println();
+        System.out.println("*list of accounts by account type.");
+        database.printByAccountType();
     }
     private void executeCommandUB(AccountDatabase database){
+        if(database.getNumAcct()==0){
+            System.out.println("Account Database is empty!");
+            return;
+        }
     }
 
 

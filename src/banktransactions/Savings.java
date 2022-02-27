@@ -19,6 +19,18 @@ public class Savings extends Account {
         this.loyalCustomer = loyalCustomer;
     }
 
+    @Override
+    public String toString(){
+        if (loyalCustomer == 1) {
+
+            return super.toString() + "::Loyal";
+
+        }else
+
+            return super.toString();
+
+    }
+
     public double monthlyInterest(){
 
         //doesn't protect against out of bounds ints
