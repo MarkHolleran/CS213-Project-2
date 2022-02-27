@@ -46,21 +46,17 @@ public class MoneyMarket extends Savings {
 
     @Override
     public String toString(){
-        String add;
+        StringBuilder sb = new StringBuilder(super.toString());
         if(super.toString().contains("::Loyal") && loyalCustomer == 0){
-            
+            sb.delete(sb.length()-7,sb.length());
+
         }else{
             return super.toString() + "::withdrawal: " + withdrawCount;
         }
 
+        sb.append("::withdrawal: " + withdrawCount);
+        return sb.toString();
 
-        if (loyalCustomer == 1) {
-
-            return super.toString() + "::Loyal";
-
-        }else
-
-            return super.toString();
 
     }
 

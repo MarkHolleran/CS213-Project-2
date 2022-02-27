@@ -312,16 +312,16 @@ public class BankTeller {
                 Profile profile2 = new Profile("fName", lName, date);
                 String type = getAccountType(accountType);
 
-                if(database.cancellation(profile, type) != NOT_FOUND){
-                    int index = database.cancellation(profile, type);
+                Account acct = createAccount(profile, accountType, 0);
 
-
+                if(database.cancellation(acct) != NOT_FOUND){
+                    int index = database.cancellation(acct);
 
                     if(database.alreadyClosed(index)){
-                        Checking acct = new Checking(profile2, 10000);
                         database.close(acct);
                         System.out.println("Account is closed already.");
                     }else{
+                        database.close(acct);
                         System.out.println("Account is closed");
                     }
                 }

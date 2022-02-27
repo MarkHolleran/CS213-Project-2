@@ -42,7 +42,10 @@ public class AccountDatabase {
         return NOT_FOUND;
     }
 
-    public int cancellation(Profile profile, String type) {
+    public int cancellation(Account acct) {
+        Profile profile = acct.getProfile();
+        String type = acct.getType();
+
         for(int i = 0; i<numAcct; i++){
             if(accounts[i].getProfile().equals(profile) && type.equals(accounts[i].getType())){
                 return i;
@@ -216,7 +219,11 @@ public class AccountDatabase {
             }
             accounts[j + 1] = key;
         }
-        print();
+        for(int i = 0; i<numAcct; i++){
+            StringBuilder sb = new StringBuilder(this.accounts[i].toString());
+            System.out.println(sb);
+        }
+
         System.out.println("*end of list.");
         System.out.println();
     }
