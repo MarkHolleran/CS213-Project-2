@@ -532,6 +532,9 @@ public class BankTeller {
         while (!("Q").equals(commandInput)){
 
             if(!("").equals(commandInput)) {
+                if(commandInput.contains("\t")){
+                    commandInput = commandInput.replace("\t","");
+                }
                 StringTokenizer segmentedInput = new StringTokenizer(commandInput, " ");
                 parseCommands(segmentedInput, database);
             }
