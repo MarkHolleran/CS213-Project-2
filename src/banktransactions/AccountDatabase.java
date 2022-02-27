@@ -115,7 +115,7 @@ public class AccountDatabase {
 
     }
 
-    private boolean duplicateAccount(Account account){
+    public boolean duplicateAccount(Account account){
 
             for(int i = 0; i < numAcct; i++){
                 if(accounts[i].getProfile().equals(account.getProfile())

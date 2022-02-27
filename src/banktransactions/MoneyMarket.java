@@ -51,10 +51,10 @@ public class MoneyMarket extends Savings {
             sb.delete(sb.length()-7,sb.length());
 
         }else{
-            return super.toString() + "::withdrawal: " + withdrawCount;
+            return super.toString() + "::withdrawl: " + withdrawCount;
         }
 
-        sb.append("::withdrawal: " + withdrawCount);
+        sb.append("::withdrawl: " + withdrawCount);
         return sb.toString();
 
 

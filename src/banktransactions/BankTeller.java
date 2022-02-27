@@ -137,7 +137,9 @@ public class BankTeller {
             Checking checking = new Checking(profile, validDeposit(deposit));
             ///*
             if(database.findAcct(checking)){
+
                 if(database.findAccount(checking).closed){
+
                     checking.closed = true;
                     database.open(checking);
                     System.out.println("Account reopened.");
@@ -146,25 +148,18 @@ public class BankTeller {
                     System.out.println(profile.toString()+ " same account(type) is in the database.");
                 }
             }else{
+                try{
+                    if(database.duplicateAccount(checking)){
+                        System.out.println(profile.toString()+ " same account(type) is in the database.");
+                        return;
+                    }
+                }catch(Exception e){
+
+                }
                 database.open(checking);
                 System.out.println("Account opened.");
+
             }
-            //*/
-            /*
-            boolean attempt = false;
-            if(checking.closed){
-                attempt = true;
-            }
-            if(!database.open(checking)){
-                System.out.println(profile.toString()+ " same account(type) is in the database.");
-                return;
-            }
-            if(database.findAcct(checking) && attempt){
-                System.out.println("Account reopened.");
-            }else{
-                System.out.println("Account opened.");
-            }
-            */
 
         }
     }
@@ -197,18 +192,29 @@ public class BankTeller {
         if(validDeposit(deposit)!=INVALID_DEPOSIT){
             Profile profile = new Profile(fName, lName, date);
             CollegeChecking checking = new CollegeChecking(profile, validDeposit(deposit), campusCode);
-            boolean attempt = false;
-            if(checking.closed){
-                attempt = true;
-            }
-            if(!database.open(checking)){
-                System.out.println(profile.toString()+ " same account(type) is in the database.");
-                return;
-            }
-            if(database.findAcct(checking) && attempt){
-                System.out.println("Account reopened.");
+            if(database.findAcct(checking)){
+
+                if(database.findAccount(checking).closed){
+
+                    checking.closed = true;
+                    database.open(checking);
+                    System.out.println("Account reopened.");
+                }else{
+                    checking.closed = false;
+                    System.out.println(profile.toString()+ " same account(type) is in the database.");
+                }
             }else{
+                try{
+                    if(database.duplicateAccount(checking)){
+                        System.out.println(profile.toString()+ " same account(type) is in the database.");
+                        return;
+                    }
+                }catch(Exception e){
+
+                }
+                database.open(checking);
                 System.out.println("Account opened.");
+
             }
 
         }
@@ -274,24 +280,42 @@ public class BankTeller {
         }
         if(validDeposit(deposit)!=INVALID_DEPOSIT){
             Profile profile = new Profile(fName, lName, date);
-            MoneyMarket moneyMarket = new MoneyMarket(profile, validDeposit(deposit));
-            boolean attempt = false;
-            if(moneyMarket.closed){
-                attempt = true;
-            }
+            MoneyMarket checking = new MoneyMarket(profile, validDeposit(deposit));
+
             if(validDeposit(deposit)<2500){
                 System.out.println("Minimum of $2500 to open a MoneyMarket account.");
                 return;
             }
-            if(!database.open(moneyMarket)){
-                System.out.println(profile.toString()+ " same account(type) is in the database.");
-                return;
-            }
-            if(database.findAcct(moneyMarket) && attempt){
-                System.out.println("Account reopened.");
+            //I can write
+            /////////////////////////////////////////////////////
+            if(database.findAcct(checking)){
+
+                if(database.findAccount(checking).closed){
+
+                    checking.closed = true;
+                    database.open(checking);
+                    System.out.println("Account reopened.");
+                }else{
+                    checking.closed = false;
+                    System.out.println(profile.toString()+ " same account(type) is in the database.");
+                }
             }else{
+                try{
+                    if(database.duplicateAccount(checking)){
+                        System.out.println(profile.toString()+ " same account(type) is in the database.");
+                        return;
+                    }
+                }catch(Exception e){
+
+                }
+                database.open(checking);
                 System.out.println("Account opened.");
+
             }
+            //
+
+
+
 
         }
     }
@@ -309,7 +333,7 @@ public class BankTeller {
             return "Savings";
         }
         if(cmd.equals("MM")){
-            return "Money Market Savings";
+            return "Money Market";
         }
 
         return "Crash";
@@ -339,7 +363,7 @@ public class BankTeller {
                         System.out.println("Account is closed already.");
                     }else{
                         database.close(acct);
-                        System.out.println("Account is closed");
+                        System.out.println("Account closed.");
                     }
                 }
 
@@ -382,14 +406,19 @@ public class BankTeller {
                 String type = getAccountType(accountType);
                 Profile profile = new Profile(fName, lName, date);
 
-                if(!database.findProfile(profile)){
+                Account accot = createAccount(profile, accountType,0);
+
+
+                if(!database.findAcct(accot)){
                     System.out.println(profile.toString() + " " + type + " is not in the database.");
                     return;
+                    //!database.findProfile(profile) ||
                 }
 
                 if(validOtherDeposit(deposit) != INVALID_DEPOSIT){
                     Account acct = createAccount(profile, accountType, validOtherDeposit(deposit));
                     database.deposit(acct);
+                    System.out.println("Deposit - balance updated.");
                 }
 
 
@@ -413,7 +442,9 @@ public class BankTeller {
                 String type = getAccountType(accountType);
                 Profile profile = new Profile(fName, lName, date);
 
-                if(!database.findProfile(profile)){
+                Account accot = createAccount(profile, accountType,0);
+
+                if(!database.findAcct(accot)){
                     System.out.println(profile.toString() + " " + type + " is not in the database.");
                     return;
                 }
@@ -516,6 +547,7 @@ public class BankTeller {
         database.printByAccountType();
     }
     private void executeCommandPI(AccountDatabase database){
+        //create method
         if(database.getNumAcct()==0){
             System.out.println("Account Database is empty!");
             return;
@@ -525,20 +557,18 @@ public class BankTeller {
         database.printByAccountType();
     }
     private void executeCommandUB(AccountDatabase database){
+        //create method
         if(database.getNumAcct()==0){
             System.out.println("Account Database is empty!");
             return;
         }
+        System.out.println();
+        System.out.println("*list of accounts by account type.");
+        database.printByAccountType();
     }
 
 
     public void run(){
-
-        //define a run() method that handles the transactions
-        //keep this method under 35 lines
-        //handle all exceptions and invalid data before it calls the method in AccountDatabse class to complete tranasctions
-
-        //could get inputmismatchexceptions, numberformatexceptions, nosuchelementexception, invalid (dates, campus codes, deposits, withdraws)
 
         Scanner input = new Scanner(System.in);
 
@@ -559,16 +589,9 @@ public class BankTeller {
 
         }
 
-        System.out.println("Bank Teller is terminated");
+        System.out.println("Bank Teller is terminated. ");
         System.exit(0);
 
     }
-
-
-
-
-
-
-
 
 }
