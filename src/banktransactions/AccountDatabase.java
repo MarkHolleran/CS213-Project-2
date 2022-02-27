@@ -90,7 +90,32 @@ public class AccountDatabase {
 
     }
 
+    private boolean duplicateAccount(Account account){
+
+            for(int i = 0; i < numAcct; i++){
+                if(accounts[i].getProfile().equals(account.getProfile())
+                    && account instanceof CollegeChecking
+                    && accounts[i] instanceof Checking){
+                    return true;
+                }
+                if(accounts[i].getProfile().equals(account.getProfile())
+                        && account instanceof Checking
+                        && accounts[i] instanceof CollegeChecking){
+                    return true;
+                }
+            }
+
+
+        return false;
+    }
+
+
+
     public boolean open(Account account) {
+
+        if(duplicateAccount(account)){
+            return false;
+        }
 
         if(findAcct(account) && !account.closed){
             return false;
@@ -104,6 +129,11 @@ public class AccountDatabase {
         }
 
         if(find(account) == NOT_FOUND){
+
+            if(numAcct == this.accounts.length){
+                this.grow();
+            }
+
             accounts[numAcct] = account;
             accounts[numAcct].closed = false;
             return true;
