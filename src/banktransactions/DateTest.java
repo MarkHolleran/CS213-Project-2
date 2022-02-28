@@ -47,7 +47,7 @@ class DateTest {
         //Test 10: Testing regular day
         Date test10 = new Date("2/20/2021");
         assertTrue(test10.isValid());
-        
+
     }
 
 }

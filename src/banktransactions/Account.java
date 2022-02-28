@@ -3,6 +3,14 @@ package banktransactions;
 
 import java.text.DecimalFormat;
 
+/**
+ * Class that represents an abstract Account Object
+ *
+ * An Account object contains a Profile object,
+ * a boolean representing a closed or open account,
+ * and a double representing the current balance.
+ * @author Mark Holleran, Abhitej Bokka
+ */
 public abstract class Account {
 
     //cannot add additional instance variables or change method signatures
@@ -11,6 +19,12 @@ public abstract class Account {
     protected boolean closed;
     protected double balance;
 
+
+    /**
+     *
+     * @param obj Instance of Account to compare against another Account object
+     * @return True if Account Profile and Type are same, false otherwise
+     */
     @Override
     public boolean equals(Object obj) {
 

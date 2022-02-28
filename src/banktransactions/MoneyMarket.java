@@ -11,11 +11,11 @@ public class MoneyMarket extends Savings {
 
     public final double NO_FEE = 0;
     public final double MONTHLY_FEE = 10;
-    public final double MM_ADDITIONAL_INTEREST_RATE_PERCENTAGE = 0.5/100;
-    public final double MM_LOYAL_INTEREST_RATE_PERCENTAGE = 0.15/100;
+    public final double MM_ADDITIONAL_INTEREST_RATE_PERCENTAGE = 0.8/100;
+    public final double MM_LOYAL_INTEREST_RATE_PERCENTAGE = 0.95/100;
     public static final int DEFAULT_LOYALTY = 1;
     public int withdrawCount = 0;
-    public int MAX_WITHDRAW_LIMIT = 3;
+    public final int MAX_WITHDRAW_LIMIT = 3;
 
     public final double BALANCE_IF_WAIVED = 2500;
     public static final String ACCOUNT_TYPE = "Money Market Savings";
@@ -57,25 +57,30 @@ public class MoneyMarket extends Savings {
         sb.append("::withdrawal: " + withdrawCount);
         return sb.toString();
 
-
     }
 
     @Override
     public double monthlyInterest() {
 
-        double newTotal = super.monthlyInterest() + this.balance * MM_ADDITIONAL_INTEREST_RATE_PERCENTAGE;
+        double total = this.balance;
 
-        if(loyalCustomer == 1){
-            newTotal += this.balance * MM_LOYAL_INTEREST_RATE_PERCENTAGE;
+        if (loyalCustomer == 1){
+            total = total + total * MM_LOYAL_INTEREST_RATE_PERCENTAGE;
+
+            return total;
         }
 
-        if(newTotal >= BALANCE_IF_WAIVED){
+
+        if(total >= BALANCE_IF_WAIVED){
+
             loyalCustomer = 1;
         }
 
-        return newTotal;
-    }
+        //have this in withdraw or deposit
+        total = total + total * MM_ADDITIONAL_INTEREST_RATE_PERCENTAGE;
 
+        return total;
+    }
 
     public void withdraw(double amount){
     

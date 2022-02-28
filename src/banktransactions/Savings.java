@@ -1,5 +1,13 @@
 package banktransactions;
 
+/**
+ * Class that represents a Savings Account
+ *
+ * A savings account object consists of a Profile object,
+ * an integer of type double for the account balance, and
+ *an integer representing a loyal or non loyal account
+ * @author Mark Holleran, Abhitej Bokka
+ */
 public class Savings extends Account {
 
     public static final double NO_FEE = 0;
@@ -11,14 +19,31 @@ public class Savings extends Account {
     public static final String ACCOUNT_TYPE = "Savings";
     public int loyalCustomer;
 
+
+    /**
+     * Creates a Savings Account object
+     *
+     * Profile object contains a Profile object, balance, and an integer
+     * signifying a loyal account.
+     *
+     * @param profile Profile object that holds first name, last name, and date of birth
+     * @param balance Double value representing account balance
+     * @param loyalCustomer Integer value of 1 if a loyal customer, 0 otherwise
+     */
     public Savings(Profile profile, double balance, int loyalCustomer ) {
 
         super.holder = profile;
         super.closed = false;
         super.deposit(balance);
         this.loyalCustomer = loyalCustomer;
+
     }
 
+    /**
+     *Returns Savings account object as a String
+     *
+     * @return String representation of Savings account object
+     */
     @Override
     public String toString(){
         if (loyalCustomer == 1) {
@@ -31,6 +56,13 @@ public class Savings extends Account {
 
     }
 
+    /**
+     *Returns current balance plus monthly interest
+     *
+     *if non loyal customer return balance + .3% of balance
+     *if loyal customer return balance + .45% of balance
+     * @return Double representing balance with added interest
+     */
     public double monthlyInterest(){
 
         //doesn't protect against out of bounds ints
@@ -47,6 +79,14 @@ public class Savings extends Account {
 
     }
 
+    /**
+     * Returns fee if balance is below threshold
+     *
+     * If balance is < $300 a fee of 6 dollars is applied
+     * otherwise, no fee
+     *
+     * @return Double representing account fee
+     */
     public double fee(){
 
         if(this.balance>=BALANCE_IF_WAIVED){
@@ -61,14 +101,39 @@ public class Savings extends Account {
 
     }
 
+    /**
+     * Decreases balance in account by specified amount
+     *
+     * Calls withdraw method in superclass to
+     * subtract amount from balance within Account
+     *
+     * @param amount Amount to be withdrawn from account balance
+     */
     public void withdraw(double amount){
+
         super.withdraw(amount);
+
     }
 
+    /**
+     * Increases balance in account by specified amount
+     *
+     * Calls deposit method in superclass to
+     * add amount to current balance
+     *
+     * @param amount Amount to be added to account balance
+     */
     public void deposit(double amount){
+
         super.deposit(amount);
+
     }
 
+    /**
+     * Returns the specified name of the Account
+     *
+     * @return String representing Account type
+     */
     public String getType(){
 
         return ACCOUNT_TYPE;
