@@ -1,5 +1,15 @@
 package banktransactions;
 
+/**
+ * Class that represents a College Checking Account object
+ *
+ * A College Checking Account object contains a Profile object,
+ * balance, and a campus code. Within this class there are
+ * methods to deposit, withdraw, return monthly interest,
+ * get type, and toString methods.
+ *
+ * @author Mark Holleran, Abhitej Bokka
+ */
 public class CollegeChecking extends Checking {
 
     //public final double NO_FEE = 0;
@@ -9,20 +19,19 @@ public class CollegeChecking extends Checking {
     public final int CAMPUS_ZERO = 0;
     public final int CAMPUS_ONE = 1;
     public final int CAMPUS_TWO = 2;
-    //0 fees always
-    //.25 interest rate
+
 
     public final String ACCOUNT_TYPE = "College Checking";
     private int campusCode;
 
-    //Provided to Rutgers’s students only. Must provide a
-    //valid campus code to qualify:
-    //0 – New Brunswick
-    //1 – Newark
-    //2 – Camden
 
-//College Checking::Chris Young 9/20/2001::Balance $500.00::NEW_BRUNSWICK
-
+    /**
+     * Constructor for a College Checking Account object
+     *
+     * @param profile Profile object containing first name, last name, and date of birth
+     * @param balance Double representing amount to be initially deposited into the Account
+     * @param campusCode Representing which campus
+     */
     public CollegeChecking(Profile profile, double balance, int campusCode){
 
         super(profile, balance);
@@ -45,40 +54,68 @@ public class CollegeChecking extends Checking {
         return false;
     }
 
+    /**
+     *
+     * @return Balance of an Account object with the monthly interest added to the balance
+     */
     public double monthlyInterest(){
 
         return super.monthlyInterest() + this.balance * ADDITONAL_INTEREST_RATE_PERCENTAGE/MONTHS_IN_A_YEAR;
 
     }
 
+    /**
+     * Adds a specified amount to the balance of a College Checking Account
+     *
+     * @param amount Amount to add to the balance of a College Checking Account object
+     */
     public void deposit(double amount){
 
        super.deposit(amount);
 
     }
 
+    /**
+     * Subtracts a specified amount from the balance of an Account
+     *
+     * @param amount Amount to subtract from the balance of an Account object
+     */
     public void withdraw(double amount){
 
         super.withdraw(amount);
 
     }
 
+    /**
+     * Returns the account type variable of an Account
+     *
+     * @return String containing the type of Account
+     */
     public String getType(){
 
         return ACCOUNT_TYPE;
 
     }
 
+    /**
+     * Returns the fee to hold a College Checking Account
+     *
+     * @return Double representing the fee to hold a College Checking Account
+     */
     public double fee() {
 
         return MONTHLY_FEE;
 
     }
 
+    /**
+     * Returns the Account type, profile object, balance,
+     * and campus as a String
+     *
+     * @return String representing a College Checking Account object
+     */
     @Override
     public String toString(){
-        //0 else if 1 otherwise 0
-        //this doesn't defend against out of bounds ints
 
         if (campusCode == CAMPUS_ZERO) {
 

@@ -3,10 +3,13 @@ package banktransactions;
 /**
  * Class that represents a MoneyMarket account
  *
+ * Methods within this class can create a Money Market Account,
+ *  calculate balance after monthly interest, return fees,
+ *  withdraw and deposit, get account type, and return
+ *  a String representation of a Money Market account object
  *
  * @author Mark Holleran, Abhitej Bokka
  */
-
 public class MoneyMarket extends Savings {
 
     public final double NO_FEE = 0;
@@ -21,17 +24,14 @@ public class MoneyMarket extends Savings {
     public final double BALANCE_IF_WAIVED = 2500;
     public static final String ACCOUNT_TYPE = "Money Market Savings";
     public int loyalCustomer = 1;
-    //1 by default ... other constructor for if not loyal
-    //extends the Savings class
-    //includes specific data and operaitons to a money market account
 
     /**
+     *Constructor for creating a Money Market Account object
      *
-     * @param profile
-     * @param balance
+     * @param profile Object containing first name, last name, and date of birth
+     * @param balance Specified amount to initialize the Checking account with
      */
     public MoneyMarket(Profile profile, double balance){
-        //moneymarket account is loyal by default
 
         super(profile, balance, DEFAULT_LOYALTY);
 
@@ -78,6 +78,10 @@ public class MoneyMarket extends Savings {
 
     }
 
+    /* Returns balance of a Money Market account with interest added
+     *
+     * @return Double representing the balance of a Money Market account after monthly interest is added
+     */
     @Override
     public double monthlyInterest() {
 
@@ -94,7 +98,33 @@ public class MoneyMarket extends Savings {
         return newTotal;
     }
 
+    /**
+     * Returns the fee to hold a Money Market account
+     *
+     * Fee is waived if account balance is greater than $2500 and withdraws does not exceed 3
+     *
+     * @return Double representing the fee depending on amount within a Money Market object
+     */
+    @Override
+    public double fee(){
 
+        if (withdrawCount < MAX_WITHDRAW_LIMIT){
+
+            return NO_FEE;
+
+        }else {
+
+            return MONTHLY_FEE;
+
+        }
+
+    }
+
+    /**
+     * subtracts a specified amount from the balance of a Money Market Account
+     *
+     * @param amount Amount to be withdrawn from account balance
+     */
     public void withdraw(double amount){
     
         super.withdraw(amount);
@@ -109,18 +139,33 @@ public class MoneyMarket extends Savings {
 
     }
 
+    /**
+     * Adds a specified amount to the balance of a Money Market account
+     *
+     * @param amount Amount to be added to account balance
+     */
     public void deposit (double amount){
 
         super.deposit(amount);
 
     }
 
+    /**
+     * Returns the account type variable of the Checking account
+     *
+     * @return String representing the type of account
+     */
     public String getType(){
 
         return ACCOUNT_TYPE;
 
     }
 
+    /**
+     *Returns Money Market Account object as a String
+     *
+     * @return String representation of a Money Market object
+     */
     @Override
     public double fee(){
 
@@ -131,31 +176,18 @@ public class MoneyMarket extends Savings {
         }else {
             //(this.balance >= BALANCE_IF_WAIVED && withdrawCount > 3)
             return MONTHLY_FEE;
+    public String toString(){
+        StringBuilder sb = new StringBuilder(super.toString());
+        if(super.toString().contains("::Loyal") && loyalCustomer == 0){
+            sb.delete(sb.length()-7,sb.length());
 
+        }else{
+            return super.toString() + "::withdrawl: " + withdrawCount;
         }
 
+        sb.append("::withdrawl: " + withdrawCount);
+        return sb.toString();
+
     }
-
-    /*
-    public static void main(String[] args){
-
-        Date date = new Date("8/10/2002");
-        Profile profile = new Profile("Abhitej","Bokka",date);
-        MoneyMarket mm = new MoneyMarket(profile,3200);
-
-        System.out.println(mm.getType());
-        System.out.println(mm.loyalCustomer);
-    }
-    */
 
 }
-//By default, it is a loyal customer account
-
-//• If the balance falls below $2500, then it is not a
-//loyal customer account anymore
-
-//• A loyal customer account gets additional interest
-//rate 0.15%; that is, annual interest rate will be
-//0.95%.
-//• Fee cannot be waived if the number of
-//withdrawals exceeds 3 times
