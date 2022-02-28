@@ -40,7 +40,7 @@ public class AccountDatabase {
     /**
      * Goes through each entry in the array searching for specified Account object
      *
-     * If account is found it's index is found, otherwise returns not_found
+     * If account is found its index is found, otherwise returns not_found
      *
      * @param account Account object being searched for
      * @return Integer value of the array index position of the Account object if found, not_found otherwise

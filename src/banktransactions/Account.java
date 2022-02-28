@@ -112,7 +112,7 @@ public abstract class Account {
      *
      * @return Fee for holding an Account
      */
-    public abstract double fee(); //return monthly fee
+    public abstract double fee();
 
     /**
      * Abstract method for returning the Account's type
