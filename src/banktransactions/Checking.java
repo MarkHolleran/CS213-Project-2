@@ -4,6 +4,7 @@ public class Checking extends Account {
 
     public static final double MONTHLY_FEE = 25;
     public static final double INTEREST_RATE_PERCENTAGE = 0.1/100;
+    public static final double MONTHS_IN_A_YEAR = 12;
     public static final double BALANCE_IF_WAIVED = 1000;
     public static final String ACCOUNT_TYPE = "Checking";
 
@@ -19,7 +20,7 @@ public class Checking extends Account {
 
     public double monthlyInterest(){
 
-        return this.balance + this.balance*INTEREST_RATE_PERCENTAGE;
+        return this.balance*INTEREST_RATE_PERCENTAGE/MONTHS_IN_A_YEAR;
 
     }
 

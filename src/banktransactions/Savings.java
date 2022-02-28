@@ -14,7 +14,7 @@ public class Savings extends Account {
     public static final double MONTHLY_SAVINGS_FEE = 6;
     public static final double NONINTEREST_RATE_PERCENTAGE = 0.3/100;
     public static final double LOYALINTEREST_RATE_PERCENTAGE = 0.45/100;
-
+    public static final double MONTHS_IN_A_YEAR = 12;
     public static final double BALANCE_IF_WAIVED = 300;
     public static final String ACCOUNT_TYPE = "Savings";
     public int loyalCustomer;
@@ -69,11 +69,11 @@ public class Savings extends Account {
 
         if (loyalCustomer == 0) {
 
-            return this.balance + this.balance * NONINTEREST_RATE_PERCENTAGE;
+            return this.balance * NONINTEREST_RATE_PERCENTAGE/MONTHS_IN_A_YEAR;
 
         }else {
 
-            return this.balance + this.balance * LOYALINTEREST_RATE_PERCENTAGE;
+            return this.balance * LOYALINTEREST_RATE_PERCENTAGE/MONTHS_IN_A_YEAR;
 
         }
 
