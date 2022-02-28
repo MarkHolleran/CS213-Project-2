@@ -86,7 +86,12 @@ public class BankTeller {
 
 
     /**
-     * Private method for executing the Open Account command
+     * Private method that attempts the Open Account command
+     *
+     * If the command follows the proper formatting,
+     * the command will move forward to execute
+     * commands of different account type.
+     *
      * @param segmentedInput Commandline input
      * @param database Database containing Account objects
      */
@@ -185,8 +190,6 @@ public class BankTeller {
 
         }
     }
-
-
 
     /**
      * Private method for creating a College Checking Account object
@@ -390,7 +393,6 @@ public class BankTeller {
         return null;
     }
 
-
     /**
      * Private method for depositing amount into an Account object
      *
@@ -558,7 +560,7 @@ public class BankTeller {
 
     /**
      * Method that runs the BankTeller commandline
-     * input until Q is pressed
+     * input until Q is pressed.
      */
     public void run(){
 
