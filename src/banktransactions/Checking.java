@@ -18,6 +18,20 @@ public class Checking extends Account {
 
     }
 
+    /**
+     *
+     * @param obj Instance of Account to compare against another Account object
+     * @return True if Account Profile and Type are same, false otherwise
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Checking) {
+            Checking acct = (Checking) obj;
+            return this.holder.equals(acct.holder);
+        }
+        return false;
+    }
+
     public double monthlyInterest(){
 
         return this.balance*INTEREST_RATE_PERCENTAGE/MONTHS_IN_A_YEAR;

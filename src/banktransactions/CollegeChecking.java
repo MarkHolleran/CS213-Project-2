@@ -31,6 +31,20 @@ public class CollegeChecking extends Checking {
 
     }
 
+    /**
+     *
+     * @param obj Instance of Account to compare against another Account object
+     * @return True if Account Profile and Type are same, false otherwise
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof CollegeChecking) {
+            CollegeChecking acct = (CollegeChecking) obj;
+            return this.holder.equals(acct.holder);
+        }
+        return false;
+    }
+
     public double monthlyInterest(){
 
         return super.monthlyInterest() + this.balance * ADDITONAL_INTEREST_RATE_PERCENTAGE/MONTHS_IN_A_YEAR;

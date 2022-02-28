@@ -109,7 +109,7 @@ public class BankTeller {
                         System.out.println("Missing data for opening an account.");
                 }
             } catch (Exception e) {
-                System.out.println("Invalid Command!-------------");
+                System.out.println("Invalid Command!");
             }
 
         } else {
@@ -288,7 +288,7 @@ public class BankTeller {
             }
             //I can write
             /////////////////////////////////////////////////////
-            if(database.findAcct(checking)){
+            if(database.findAcct(checking) && database.findAccount(checking).getType().equals(checking.getType())){
 
                 if(database.findAccount(checking).closed){
 

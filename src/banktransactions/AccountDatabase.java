@@ -35,7 +35,7 @@ public class AccountDatabase {
 
     private int find(Account account) {
         for(int i = 0; i<numAcct; i++){
-            if(accounts[i].equals(account)){
+            if(accounts[i].equals(account) && accounts[i].getType().equals(account.getType())){
 
                 return i;
 
@@ -58,7 +58,7 @@ public class AccountDatabase {
 
     public boolean findAcct(Account acct){
         for(int i = 0; i < numAcct; i++){
-            if(accounts[i].equals(acct)){
+            if(accounts[i].equals(acct) && accounts[i].getType().equals(acct.getType())){
                 return true;
             }
         }
@@ -67,7 +67,7 @@ public class AccountDatabase {
 
     public Account findAccount(Account acct){
         for(int i = 0; i < numAcct; i++){
-            if(accounts[i].equals(acct)){
+            if(accounts[i].equals(acct) && accounts[i].getType().equals(acct.getType())){
                 return accounts[i];
             }
         }
@@ -122,12 +122,13 @@ public class AccountDatabase {
             for(int i = 0; i < numAcct; i++){
                 if(accounts[i].getProfile().equals(account.getProfile())
                     && account instanceof CollegeChecking
-                    && accounts[i] instanceof Checking){
+                    && accounts[i] instanceof Checking && (!(accounts[i] instanceof CollegeChecking))){
                     return true;
                 }
                 if(accounts[i].getProfile().equals(account.getProfile())
                         && account instanceof Checking
-                        && accounts[i] instanceof CollegeChecking){
+                        && accounts[i] instanceof CollegeChecking
+                        && (!(account instanceof CollegeChecking))){
                     return true;
                 }
             }
@@ -181,6 +182,9 @@ public class AccountDatabase {
         if(find(account) != NOT_FOUND){
             int index = find(account);
             accounts[index].closed = true;
+            if(accounts[index] instanceof MoneyMarket){
+                ((MoneyMarket) accounts[index]).withdrawCount = 0;
+            }
             accounts[index].balance = 0;
             return true;
         }

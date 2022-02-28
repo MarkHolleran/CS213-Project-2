@@ -40,13 +40,27 @@ public class Savings extends Account {
     }
 
     /**
+     *
+     * @param obj Instance of Account to compare against another Account object
+     * @return True if Account Profile and Type are same, false otherwise
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Savings) {
+            Savings acct = (Savings) obj;
+            return this.holder.equals(acct.holder);
+        }
+        return false;
+    }
+
+    /**
      *Returns Savings account object as a String
      *
      * @return String representation of Savings account object
      */
     @Override
     public String toString(){
-        if (loyalCustomer == 1) {
+        if (loyalCustomer == 1 && !super.toString().contains("CLOSED")) {
 
             return super.toString() + "::Loyal";
 

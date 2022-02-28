@@ -45,9 +45,26 @@ public class MoneyMarket extends Savings {
 
     }
 
+    /**
+     *
+     * @param obj Instance of Account to compare against another Account object
+     * @return True if Account Profile and Type are same, false otherwise
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof MoneyMarket) {
+            MoneyMarket acct = (MoneyMarket) obj;
+            return this.holder.equals(acct.holder);
+        }
+        return false;
+    }
+
     @Override
     public String toString(){
         StringBuilder sb = new StringBuilder(super.toString());
+
+
+
         if(super.toString().contains("::Loyal") && loyalCustomer == 0){
             sb.delete(sb.length()-7,sb.length());
 
@@ -107,7 +124,7 @@ public class MoneyMarket extends Savings {
     @Override
     public double fee(){
 
-        if (withdrawCount < MAX_WITHDRAW_LIMIT){
+        if (withdrawCount < MAX_WITHDRAW_LIMIT && balance >= 2500){
         // wording is confusing here
             return NO_FEE;
 
