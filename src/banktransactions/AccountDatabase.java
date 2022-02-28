@@ -48,14 +48,11 @@ public class AccountDatabase {
     public int find(Account account) {
         for(int i = 0; i<numAcct; i++){
             if(accounts[i].equals(account) && accounts[i].getType().equals(account.getType())){
-
                 return i;
-
             }
         }
         return NOT_FOUND;
     }
-
 
     /**
      * Goes through an array searching for a specified Account object
@@ -71,8 +68,14 @@ public class AccountDatabase {
         }
         return false;
     }
-//maybe delete this one
-    public Account findAccount(Account acct){
+
+    /**
+     * Goes through an array searching for a specified Account object
+     *
+     * @param acct Account object being searched for
+     * @return Account object if account being searched for was found or not
+     */
+    public Account getAccount(Account acct){
         for(int i = 0; i < numAcct; i++){
             if(accounts[i].equals(acct) && accounts[i].getType().equals(acct.getType())){
                 return accounts[i];
@@ -95,44 +98,17 @@ public class AccountDatabase {
     }
 
     /**
-     * Goes through an array searching for specified Profile object
-     * @param profile Profile object being searched for
-     * @return True if matching profile is found, false otherwise
-     */
-    public boolean findProfile(Profile profile){
-
-        for(int i = 0; i < numAcct; i++){
-
-            if(accounts[i].getProfile().equals(profile)){
-
-                return true;
-
-            }
-
-        }
-
-        return false;
-
-    }
-
-    /**
      * Helper method used for resizing an Array
      *
      * Once the array is full it's size increases by 4
      */
     private void grow() {
-
-        int resizedLength = accounts.length+4;
-
+        int resizedLength = accounts.length + 4;
         Account[] resizedArray = new Account[resizedLength];
-
         for(int i = 0; i < numAcct; i++){
-
             resizedArray[i] = accounts[i];
-
         }
         accounts = resizedArray;
-
     }
 
     /**
@@ -157,8 +133,6 @@ public class AccountDatabase {
                     return true;
                 }
             }
-
-
         return false;
     }
 
@@ -176,15 +150,10 @@ public class AccountDatabase {
      */
     public boolean open(Account account) {
 
-        if(duplicateAccount(account)){
-            return false;
-        }
+        if(duplicateAccount(account)) return false;
 
         if(find(account) == NOT_FOUND){
-
-            if(numAcct >= this.accounts.length){
-                this.grow();
-            }
+            if(numAcct >= this.accounts.length) this.grow();
 
             accounts[numAcct] = account;
             accounts[numAcct].closed = false;
@@ -192,23 +161,16 @@ public class AccountDatabase {
             return true;
         }
 
-        if(findAcct(account) && !account.closed){
-            return false;
-        }
+        if(findAcct(account) && !account.closed) return false;
 
         if(findAcct(account) && account.closed){
-
-            if(numAcct >= this.accounts.length){
-                this.grow();
-            }
+            if(numAcct >= this.accounts.length) this.grow();
 
             int index = find(account);
             accounts[index] = account;
             accounts[index].closed = false;
             return true;
         }
-
-
         return false;
     }
 
@@ -246,7 +208,6 @@ public class AccountDatabase {
         if(find(account) != NOT_FOUND){
             int index = find(account);
             accounts[index].deposit(account.balance);
-
         }
         return;
     }
@@ -299,10 +260,8 @@ public class AccountDatabase {
             }
             accounts[j + 1] = key;
         }
-        for(int i = 0; i<numAcct; i++){
-            StringBuilder sb = new StringBuilder(this.accounts[i].toString());
-            System.out.println(sb);
-        }
+
+        print();
 
         System.out.println("*end of list.");
         System.out.println();

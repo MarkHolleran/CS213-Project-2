@@ -1,7 +1,5 @@
 package banktransactions;
 
-import java.util.Locale;
-
 /**
  * Class that stores date of birth, first name, and last name
  * The Profile object stores the first and last name as a String object
@@ -14,12 +12,6 @@ public class Profile {
     private String fname;
     private String lname;
     private Date dob;
-    //says we can't add instance variables
-    //says nothing about changing the type so changed from String dob to Date dob
-
-    //should also define equals and tostring methods
-    //cannot add other instance variables
-
 
     /**
      * Method that constructs a Profile Object

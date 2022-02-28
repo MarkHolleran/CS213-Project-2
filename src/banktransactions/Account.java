@@ -29,7 +29,6 @@ public abstract class Account {
 
             Account acct = (Account) obj;
 
-            //return (this.holder.equals(acct.holder) && this.getType().equals(acct.getType()));
             return this.holder.equals(acct.holder);
         }
 

@@ -45,7 +45,8 @@ public class Checking extends Account {
         }
         return false;
     }
-    /*
+
+    /**
      * Returns balance of a Checking account with interest added
      *
      * @return Double representing the balance of a Checking account after monthly interest is added
