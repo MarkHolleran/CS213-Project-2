@@ -2,7 +2,18 @@ package banktransactions;
 
 import java.util.Scanner;
 import java.util.StringTokenizer;
-
+/**
+ * Class that represents the commandline interface
+ * User input is tokenized and separated to
+ * verify a correct input has been entered.
+ * Methods in this class allow the user to
+ * create an account, close an account, deposit money
+ * into an account, withdraw money from an account,
+ * display all accounts in the database with
+ * various sorting methods, and a quit command
+ *
+ * @author Mark Holleran, Abhitej Bokka
+ */
 public class BankTeller {
 
     public static final int OPEN_CHECKING_ARGS = 4;
@@ -74,7 +85,11 @@ public class BankTeller {
     }
 
 
-    //meets 35 line req
+    /**
+     * Private method for executing the Open Account command
+     * @param segmentedInput Commandline input
+     * @param database Database containing Account objects
+     */
     private void tryCommandO(StringTokenizer segmentedInput, AccountDatabase database){
         try {
             boolean executed = false;
@@ -112,7 +127,11 @@ public class BankTeller {
         }
     }
 
-    //FIX LENGTH
+    /**
+     * Private method for creating a Checking Account object
+     * @param segmentedInput Commandline input containing first name, last name, date of birth, and initial deposit amount
+     * @param database Database containing Account objects
+     */
     private void executeCommandCaseC(StringTokenizer segmentedInput, AccountDatabase database){
 
         String fName = segmentedInput.nextToken();
@@ -156,7 +175,11 @@ public class BankTeller {
         }
     }
 
-    //FIX LENGTH
+    /**
+     * Private method for creating a College Checking Account object
+     * @param segmentedInput String containing first name, last name, date of birth, initial deposit, and campus code
+     * @param database Database containing Account objects
+     */
     private void executeCommandCaseCC(StringTokenizer segmentedInput, AccountDatabase database){
 
         String fName = segmentedInput.nextToken();
@@ -215,7 +238,11 @@ public class BankTeller {
         }
     }
 
-    //FIX LENGTH
+    /**
+     * Private method for creating a Savings Account object
+     * @param segmentedInput String containing first name, last name, date of birth, inital deposit, and customer loyalty
+     * @param database Database containing Account objects
+     */
     private void executeCommandCaseS(StringTokenizer segmentedInput, AccountDatabase database){
 
         String fName = segmentedInput.nextToken();
@@ -263,7 +290,11 @@ public class BankTeller {
         }
     }
 
-    //FIX LENGTH
+    /**
+     * Private method for creating a Money Market Account object
+     * @param segmentedInput String containing first name, last name, date of birth, and initial deposit
+     * @param database Database containing Account objects
+     */
     private void executeCommandCaseMM(StringTokenizer segmentedInput, AccountDatabase database){
         String fName = segmentedInput.nextToken();
         String lName = segmentedInput.nextToken();
@@ -337,6 +368,12 @@ public class BankTeller {
         return "No Match";
     }
 
+    /**
+     * Private method for Closing an account
+     *
+     * @param segmentedInput Commandline input for closing an Account
+     * @param database Database containing Account objects
+     */
     private void tryCommandC(StringTokenizer segmentedInput, AccountDatabase database){
         if (segmentedInput.countTokens() == CLOSE_ACCT_ARGS_MIN) {
             try {
@@ -370,8 +407,7 @@ public class BankTeller {
             System.out.println("Missing data for closing an account.");
         }
     }
-
-
+    
     /**
      * Creates an account based on the account type given a profile and balance
      *
@@ -398,6 +434,12 @@ public class BankTeller {
         return null;
     }
 
+    /**
+     * Private method for depositing amount into an Account object
+     *
+     * @param segmentedInput Commandline input containing account type, first & last name, date of birth, and deposit amount
+     * @param database Database containing Account objects
+     */
     private void tryCommandD(StringTokenizer segmentedInput, AccountDatabase database){
         if (segmentedInput.countTokens() == DEPOSIT_OR_WITHDRAW_NUM_ARGUMENTS) {
             try {
@@ -435,6 +477,13 @@ public class BankTeller {
         }
     }
 
+    /**
+     * Private method for subtracting specified
+     * amount from the balance of an Account object
+     *
+     * @param segmentedInput String input containing account type, first & last name, date of birth and withdraw amount
+     * @param database Database containing Account objects
+     */
     private void tryCommandW(StringTokenizer segmentedInput, AccountDatabase database){
         if (segmentedInput.countTokens() == DEPOSIT_OR_WITHDRAW_NUM_ARGUMENTS) {
             try {
@@ -471,7 +520,13 @@ public class BankTeller {
         }
     }
 
-
+    /**
+     * Private method executing available commands
+     *
+     * String input is tokenized and processed one at a time
+     * @param segmentedInput String input broken down and
+     * @param database Database containing Account objects
+     */
     private void parseCommands(StringTokenizer segmentedInput, AccountDatabase database){
         switch (segmentedInput.nextToken()){
             case "O":
@@ -506,6 +561,12 @@ public class BankTeller {
 
     }
 
+    /**
+     * Private method that displays all accounts in the Database Array
+     * in various ordering
+     *
+     * @param database Database containing Account objects
+     */
     private void executeCommandP(AccountDatabase database){
         if(database.getNumAcct()==0){
             System.out.println("Account Database is empty!");
@@ -548,7 +609,10 @@ public class BankTeller {
         System.out.println();
     }
 
-
+    /**
+     * Method that runs the BankTeller commandline
+     * input until Q is pressed
+     */
     public void run(){
 
         Scanner input = new Scanner(System.in);
