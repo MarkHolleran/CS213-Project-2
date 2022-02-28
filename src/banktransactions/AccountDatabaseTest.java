@@ -70,14 +70,38 @@ class AccountDatabaseTest {
         Account collegeCheckingtest9 = new CollegeChecking(testProfile,2030, 3);
         assertFalse(database2.open(collegeCheckingtest9));
 
+        //Test 10: reopening a previously closed account
+        Date testDate10 = new Date("1/11/2011");
+        Profile testProfile10 = new Profile("wendys", "coupon", testDate10);
+        Account testChecking10 = new Checking(testProfile10, 10000);
 
+        database2.open(testChecking10);
+        database2.close(testChecking10);
 
-
+        assertTrue(database2.open(testChecking10));
 
     }
 
     @Test
     void close() {
+
+        //Test 1: Opening and closing an account
+        AccountDatabase testDatabase1 = new AccountDatabase();
+        Date testDate8 = new Date("1/11/2011");
+        Profile testProfile1 = new Profile("Greg", "Richardson", testDate8);
+        Checking testChecking1 = new Checking(testProfile1, 3);
+        testDatabase1.open(testChecking1);
+        assertTrue(testDatabase1.close((testChecking1)));
+
+        //Test 2: Attempting to close an already closed account
+        assertFalse(testDatabase1.close((testChecking1)));
+
+        //Test 3: Attempting to close an account that doesn't exist
+        Date testDate3 = new Date("3/5/1980");
+        Profile testProfile3 = new Profile("will", "train", testDate8);
+        MoneyMarket testMoneyMarket3 = new MoneyMarket(testProfile1, 13032);
+        assertFalse(testDatabase1.close((testMoneyMarket3)));
+
     }
 }
 

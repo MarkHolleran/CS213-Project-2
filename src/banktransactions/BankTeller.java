@@ -2,8 +2,19 @@ package banktransactions;
 
 import java.util.Scanner;
 import java.util.StringTokenizer;
-//and nessesary java exception classes???
 
+/**
+ * Class that represents the commandline interface
+ * User input is tokenized and separated to
+ * verify a correct input has been entered.
+ * Methods in this class allow the user to
+ * create an account, close an account, deposit money
+ * into an account, withdraw money from an account,
+ * display all accounts in the database with
+ * various sorting methods, and a quit command
+ *
+ * @author Mark Holleran, Abhitej Bokka
+ */
 public class BankTeller {
 
 
@@ -24,6 +35,13 @@ public class BankTeller {
     public static final int DEPOSIT_OR_WITHDRAW_NUM_ARGUMENTS = 5;
     public static final int CLOSE_ACCOUNT_NUM_ARGUMENTS = 4;
 
+    /**
+     * Helper method to determine if
+     * an amount to be added to an account's
+     * balance is valid
+     * @param deposit Double representing amount to be added to an Account
+     * @return returns -1 if amount is invalid, returns the balance otherwise
+     */
     private double validDeposit(String deposit){
         double balance;
         try{
@@ -40,6 +58,11 @@ public class BankTeller {
         }
     }
 
+    /**
+     * Helper method
+     * @param deposit
+     * @return
+     */
     private double validOtherDeposit(String deposit){
         double balance;
         try{
@@ -56,6 +79,11 @@ public class BankTeller {
         }
     }
 
+    /**
+     *
+     * @param deposit 
+     * @return
+     */
     private double validWithdraw(String deposit){
         double balance;
         try{
