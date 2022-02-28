@@ -238,8 +238,12 @@ public class AccountDatabase {
         System.out.println();
     }
 
-    private void calculate(Account account){
-
+    public void calculate(){
+        for(int i = 0; i < numAcct; i++){
+            if(!accounts[i].closed){
+                accounts[i].balance = accounts[i].balance + accounts[i].monthlyInterest() - accounts[i].fee();
+            }
+        }
     }
 
 
@@ -249,7 +253,8 @@ public class AccountDatabase {
             DecimalFormat dformat = new DecimalFormat("#,##0.00");
             DecimalFormat dformat2 = new DecimalFormat("#,##0.00");
             StringBuilder sb = new StringBuilder(accounts[i].toString());
-            sb.append("::fee $" + dformat.format(accounts[i].fee()) + "::monthly interest $" + dformat.format(accounts[i].fee())accounts[i].monthlyInterest());
+            sb.append("::fee $" + dformat.format(accounts[i].fee())
+                + "::monthly interest $" + dformat2.format(accounts[i].monthlyInterest()));
             System.out.println(sb);
         }
         System.out.println("*end of list.");

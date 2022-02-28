@@ -5,6 +5,7 @@ public class CollegeChecking extends Checking {
     //public final double NO_FEE = 0;
     public final double MONTHLY_FEE = 0;
     public final double ADDITONAL_INTEREST_RATE_PERCENTAGE = .15/100;
+    public static final double MONTHS_IN_A_YEAR = 12;
     public final int CAMPUS_ZERO = 0;
     public final int CAMPUS_ONE = 1;
     public final int CAMPUS_TWO = 2;
@@ -32,7 +33,7 @@ public class CollegeChecking extends Checking {
 
     public double monthlyInterest(){
 
-        return super.monthlyInterest() + this.balance * ADDITONAL_INTEREST_RATE_PERCENTAGE;
+        return super.monthlyInterest() + this.balance * ADDITONAL_INTEREST_RATE_PERCENTAGE/MONTHS_IN_A_YEAR;
 
     }
 
@@ -56,7 +57,7 @@ public class CollegeChecking extends Checking {
 
     public double fee() {
 
-        return super.fee();
+        return MONTHLY_FEE;
 
     }
 

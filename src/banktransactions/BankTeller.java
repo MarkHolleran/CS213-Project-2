@@ -541,8 +541,11 @@ public class BankTeller {
             return;
         }
         System.out.println();
-        System.out.println("*list of accounts by account type.");
-        database.printByAccountType();
+        System.out.println("*list of accounts with updated balance");
+        database.calculate();
+        database.print();
+        System.out.println("*end of list.");
+        System.out.println();
     }
 
 
