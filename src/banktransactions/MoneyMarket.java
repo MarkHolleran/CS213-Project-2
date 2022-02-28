@@ -57,17 +57,11 @@ public class MoneyMarket extends Savings {
      */
     @Override
     public boolean equals(Object obj) {
-
         if (obj instanceof MoneyMarket) {
-
             MoneyMarket acct = (MoneyMarket) obj;
-
             return this.holder.equals(acct.holder);
-
         }
-
         return false;
-
     }
 
 

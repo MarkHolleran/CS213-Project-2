@@ -46,7 +46,7 @@ public class Savings extends Account {
      */
     @Override
     public boolean equals(Object obj) {
-        if (obj instanceof Savings) {
+        if (obj instanceof Savings && !(obj instanceof MoneyMarket)) {
             Savings acct = (Savings) obj;
             return this.holder.equals(acct.holder);
         }
