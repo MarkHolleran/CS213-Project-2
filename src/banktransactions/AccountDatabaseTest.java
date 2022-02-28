@@ -1,4 +1,4 @@
-/*
+
 package banktransactions;
 
 import org.junit.jupiter.api.Test;
@@ -10,11 +10,7 @@ class AccountDatabaseTest {
     @Test
     void open() {
 
-        //negative... zero ammound..
-
         AccountDatabase database = new AccountDatabase();
-        //databse at the beginning to intiate tests
-
 
         Date testDate = new Date("4/21/1999");
         Profile testProfile = new Profile("Mark", "Holleran", testDate);
@@ -70,14 +66,9 @@ class AccountDatabaseTest {
         Account checkingTest8 = new Checking(testProfile8, 8000);
         assertFalse(database2.open(checkingTest8));
 
-        //Test 9: Creating a college checking account with a negative campus code
-        AccountDatabase database3 = new AccountDatabase();
-        Account collegeCheckingtest9 = new CollegeChecking(testProfile, 2030, -1);
-        assertFalse(database3.open(collegeCheckingtest9));
-
-        //Test 10: Creating a college checking account with a greater than 2 campus code
-        Account collegeCheckingtest10 = new CollegeChecking(testProfile,2030, 3);
-        assertFalse(database3.open(collegeCheckingtest9));
+        //Test 9: Creating a college checking account with a greater than 2 campus code
+        Account collegeCheckingtest9 = new CollegeChecking(testProfile,2030, 3);
+        assertFalse(database2.open(collegeCheckingtest9));
 
 
 
@@ -90,4 +81,3 @@ class AccountDatabaseTest {
     }
 }
 
- */

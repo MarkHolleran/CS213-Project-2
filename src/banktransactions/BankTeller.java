@@ -6,6 +6,8 @@ import java.util.StringTokenizer;
 
 public class BankTeller {
 
+
+
     public static final int OPEN_ACCT_ARGS_MIN = 5;
     public static final int OPEN_ACCT_ARGS_MAX = 6;
     public static final int OPEN_CHECKING_ARGS = 4;
@@ -317,8 +319,10 @@ public class BankTeller {
 
 
 
+}
+
         }
-    }
+
 
     // DONE WITH OPEN
 
@@ -353,8 +357,8 @@ public class BankTeller {
 
                 Account acct = createAccount(profile, accountType, 0);
 
-                if(database.cancellation(acct) != NOT_FOUND){
-                    int index = database.cancellation(acct);
+                if(database.find(acct) != NOT_FOUND){
+                    int index = database.find(acct);
 
                     if(database.alreadyClosed(index)){
                         database.close(acct);
