@@ -24,9 +24,6 @@ public class MoneyMarket extends Savings {
     public final double BALANCE_IF_WAIVED = 2500;
     public static final String ACCOUNT_TYPE = "Money Market Savings";
     public int loyalCustomer = 1;
-    //1 by default ... other constructor for if not loyal
-    //extends the Savings class
-    //includes specific data and operaitons to a money market account
 
     /**
      *Constructor for creating a Money Market Account object
@@ -124,7 +121,6 @@ public class MoneyMarket extends Savings {
         super.deposit(amount);
 
     }
-
 
     /**
      * Returns the fee to hold a Money Market account

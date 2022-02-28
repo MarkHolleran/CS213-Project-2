@@ -9,7 +9,6 @@ import java.util.Calendar;
      * and stored in a Date object.
      * @author Mark Holleran, Abhitej Bokka
      */
-
     public class Date implements Comparable<Date> {
 
         private int year;
@@ -150,7 +149,7 @@ import java.util.Calendar;
 
                 }
 
-                if (month > MAX_MONTH || month < MIN_MONTH) {     //if month is not 1-12 return falase
+                if (month > MAX_MONTH || month < MIN_MONTH) {
 
                     monthValid = false;
 
