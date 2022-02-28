@@ -1,4 +1,4 @@
-/*
+
 package banktransactions;
 
 import org.junit.jupiter.api.Test;
@@ -74,10 +74,8 @@ class AccountDatabaseTest {
         Date testDate10 = new Date("1/11/2011");
         Profile testProfile10 = new Profile("wendys", "coupon", testDate10);
         Account testChecking10 = new Checking(testProfile10, 10000);
-
         database2.open(testChecking10);
         database2.close(testChecking10);
-
         assertTrue(database2.open(testChecking10));
 
     }
@@ -102,6 +100,16 @@ class AccountDatabaseTest {
         MoneyMarket testMoneyMarket3 = new MoneyMarket(testProfile1, 13032);
         assertFalse(testDatabase1.close((testMoneyMarket3)));
 
+        //Test 4: Attempting to close a Checking account with the same info as a non inserted College Checking account
+        //Reasoning: should return false because the college checking account doesn't exist and the Checking
+        //account should still remain open
+
+        Date testDate4 = new Date("1/11/2011");
+        Profile testProfile4 = new Profile("mcdonald", "frosty", testDate4);
+        Account testChecking4 = new Checking(testProfile4, 10000);
+        testDatabase1.open(testChecking4);
+        Account testChecking4b = new CollegeChecking(testProfile4, 10000, 2);
+        assertFalse(testDatabase1.close(testChecking4b));
+
     }
 }
-*/

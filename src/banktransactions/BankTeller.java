@@ -407,7 +407,7 @@ public class BankTeller {
             System.out.println("Missing data for closing an account.");
         }
     }
-    
+
     /**
      * Creates an account based on the account type given a profile and balance
      *
