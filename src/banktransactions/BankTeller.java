@@ -127,6 +127,43 @@ public class BankTeller {
         }
     }
 
+    private Profile createProfile(StringTokenizer segmentedInput){
+        String fName = segmentedInput.nextToken();
+        String lName = segmentedInput.nextToken();
+        String dob = segmentedInput.nextToken();
+        Date date = new Date(dob);
+        Profile profile = new Profile(fName, lName, date);
+
+        if(!date.isValid()){
+            System.out.println("Date of birth invalid.");
+            return null;
+        }
+        return profile;
+    }
+
+    private void attemptReopen(Account checking, Profile profile, AccountDatabase database){
+        if(database.getAccount(checking).closed){
+
+            checking.closed = true;
+            database.open(checking);
+            System.out.println("Account reopened.");
+        }else{
+            checking.closed = false;
+            System.out.println(profile.toString()+ " same account(type) is in the database.");
+        }
+    }
+
+    private void attemptOpen(Account checking, Profile profile, AccountDatabase database){
+        try{
+            if(database.duplicateAccount(checking)){
+                System.out.println(profile.toString()+ " same account(type) is in the database.");
+                return;
+            }
+        }catch(Exception e){}
+        database.open(checking);
+        System.out.println("Account opened.");
+    }
+
     /**
      * Private method for creating a Checking Account object
      * @param segmentedInput Commandline input containing first name, last name, date of birth, and initial deposit amount
@@ -134,46 +171,22 @@ public class BankTeller {
      */
     private void executeCommandCaseC(StringTokenizer segmentedInput, AccountDatabase database){
 
-        String fName = segmentedInput.nextToken();
-        String lName = segmentedInput.nextToken();
-        String dob = segmentedInput.nextToken();
+        Profile profile = createProfile(segmentedInput);
         String deposit = segmentedInput.nextToken();
 
-        Date date = new Date(dob);
-
-
-        if(!date.isValid()){
-            System.out.println("Date of birth invalid.");
-            return;
-        }
         boolean initialDeposit = true;
         if(validDeposit(deposit, initialDeposit)!=INVALID_DEPOSIT_OR_WITHDRAWAL){
-            Profile profile = new Profile(fName, lName, date);
             Checking checking = new Checking(profile, validDeposit(deposit, initialDeposit));
             if(database.findAcct(checking)){
-
-                if(database.getAccount(checking).closed){
-
-                    checking.closed = true;
-                    database.open(checking);
-                    System.out.println("Account reopened.");
-                }else{
-                    checking.closed = false;
-                    System.out.println(profile.toString()+ " same account(type) is in the database.");
-                }
+                attemptReopen(checking, profile, database);
             }else{
-                try{
-                    if(database.duplicateAccount(checking)){
-                        System.out.println(profile.toString()+ " same account(type) is in the database.");
-                        return;
-                    }
-                }catch(Exception e){}
-                database.open(checking);
-                System.out.println("Account opened.");
+                attemptOpen(checking, profile, database);
             }
 
         }
     }
+
+
 
     /**
      * Private method for creating a College Checking Account object
@@ -181,10 +194,8 @@ public class BankTeller {
      * @param database Database containing Account objects
      */
     private void executeCommandCaseCC(StringTokenizer segmentedInput, AccountDatabase database){
+        Profile profile = createProfile(segmentedInput);
 
-        String fName = segmentedInput.nextToken();
-        String lName = segmentedInput.nextToken();
-        String dob = segmentedInput.nextToken();
         String deposit = segmentedInput.nextToken();
         String campus = segmentedInput.nextToken();
         int campusCode;
@@ -199,40 +210,14 @@ public class BankTeller {
             System.out.println("Invalid campus code.");
             return;
         }
-
-        Date date = new Date(dob);
-
-        if(!date.isValid()){
-            System.out.println("Date of birth invalid.");
-            return;
-        }
         boolean initialDeposit = true;
         if(validDeposit(deposit, initialDeposit)!=INVALID_DEPOSIT_OR_WITHDRAWAL){
-            Profile profile = new Profile(fName, lName, date);
+
             CollegeChecking checking = new CollegeChecking(profile, validDeposit(deposit, initialDeposit), campusCode);
             if(database.findAcct(checking)){
-
-                if(database.getAccount(checking).closed){
-
-                    checking.closed = true;
-                    database.open(checking);
-                    System.out.println("Account reopened.");
-                }else{
-                    checking.closed = false;
-                    System.out.println(profile.toString()+ " same account(type) is in the database.");
-                }
+                attemptReopen(checking, profile, database);
             }else{
-                try{
-                    if(database.duplicateAccount(checking)){
-                        System.out.println(profile.toString()+ " same account(type) is in the database.");
-                        return;
-                    }
-                }catch(Exception e){
-
-                }
-                database.open(checking);
-                System.out.println("Account opened.");
-
+                attemptOpen(checking, profile, database);
             }
 
         }
@@ -244,10 +229,7 @@ public class BankTeller {
      * @param database Database containing Account objects
      */
     private void executeCommandCaseS(StringTokenizer segmentedInput, AccountDatabase database){
-
-        String fName = segmentedInput.nextToken();
-        String lName = segmentedInput.nextToken();
-        String dob = segmentedInput.nextToken();
+        Profile profile = createProfile(segmentedInput);
         String deposit = segmentedInput.nextToken();
         String loyalty = segmentedInput.nextToken();
         int loyaltyCode;
@@ -263,15 +245,8 @@ public class BankTeller {
             return;
         }
 
-        Date date = new Date(dob);
-
-        if(!date.isValid()){
-            System.out.println("Date of birth invalid.");
-            return;
-        }
         boolean initialDeposit = true;
         if(validDeposit(deposit, initialDeposit)!=INVALID_DEPOSIT_OR_WITHDRAWAL){
-            Profile profile = new Profile(fName, lName, date);
             Savings savings = new Savings(profile, validDeposit(deposit, initialDeposit), loyaltyCode);
             boolean attempt = false;
             if(savings.closed){
@@ -317,29 +292,10 @@ public class BankTeller {
                 return;
             }
 
-            if(database.findAcct(checking) && database.getAccount(checking).getType().equals(checking.getType())){
-
-                if(database.getAccount(checking).closed){
-
-                    checking.closed = true;
-                    database.open(checking);
-                    System.out.println("Account reopened.");
-                }else{
-                    checking.closed = false;
-                    System.out.println(profile.toString()+ " same account(type) is in the database.");
-                }
+            if(database.findAcct(checking)&& database.getAccount(checking).getType().equals(checking.getType())){
+                attemptReopen(checking, profile, database);
             }else{
-                try{
-                    if(database.duplicateAccount(checking)){
-                        System.out.println(profile.toString()+ " same account(type) is in the database.");
-                        return;
-                    }
-                }catch(Exception e){
-
-                }
-                database.open(checking);
-                System.out.println("Account opened.");
-
+                attemptOpen(checking, profile, database);
             }
         }
 
@@ -434,6 +390,7 @@ public class BankTeller {
         return null;
     }
 
+
     /**
      * Private method for depositing amount into an Account object
      *
@@ -443,17 +400,12 @@ public class BankTeller {
     private void tryCommandD(StringTokenizer segmentedInput, AccountDatabase database){
         if (segmentedInput.countTokens() == DEPOSIT_OR_WITHDRAW_NUM_ARGUMENTS) {
             try {
+
                 String accountType = segmentedInput.nextToken();
-                String fName = segmentedInput.nextToken();
-                String lName = segmentedInput.nextToken();
-                String dob = segmentedInput.nextToken();
+                Profile profile = createProfile(segmentedInput);
                 String deposit = segmentedInput.nextToken();
-                Date date = new Date(dob);
                 String type = getAccountType(accountType);
-                Profile profile = new Profile(fName, lName, date);
-
                 Account accot = createAccount(profile, accountType,0);
-
 
                 if(!database.findAcct(accot)){
                     System.out.println(profile.toString() + " " + type + " is not in the database.");
@@ -467,7 +419,6 @@ public class BankTeller {
                     database.deposit(acct);
                     System.out.println("Deposit - balance updated.");
                 }
-
 
             } catch (Exception e) {
                 System.out.println("Missing data for closing an account.");
@@ -487,15 +438,11 @@ public class BankTeller {
     private void tryCommandW(StringTokenizer segmentedInput, AccountDatabase database){
         if (segmentedInput.countTokens() == DEPOSIT_OR_WITHDRAW_NUM_ARGUMENTS) {
             try {
-                String accountType = segmentedInput.nextToken();
-                String fName = segmentedInput.nextToken();
-                String lName = segmentedInput.nextToken();
-                String dob = segmentedInput.nextToken();
-                String deposit = segmentedInput.nextToken();
-                Date date = new Date(dob);
-                String type = getAccountType(accountType);
-                Profile profile = new Profile(fName, lName, date);
 
+                String accountType = segmentedInput.nextToken();
+                Profile profile = createProfile(segmentedInput);
+                String deposit = segmentedInput.nextToken();
+                String type = getAccountType(accountType);
                 Account accot = createAccount(profile, accountType,0);
 
                 if(!database.findAcct(accot)){
