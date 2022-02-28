@@ -5,8 +5,6 @@ import java.util.StringTokenizer;
 
 public class BankTeller {
 
-    public static final int OPEN_ACCT_ARGS_MIN = 5;
-    public static final int OPEN_ACCT_ARGS_MAX = 6;
     public static final int OPEN_CHECKING_ARGS = 4;
     public static final int OPEN_C_CHECKING_ARGS = 5;
     public static final int OPEN_SAVINGS_ARGS = 5;
@@ -75,6 +73,8 @@ public class BankTeller {
         }
     }
 
+
+    //meets 35 line req
     private void tryCommandO(StringTokenizer segmentedInput, AccountDatabase database){
         try {
             boolean executed = false;
@@ -112,6 +112,7 @@ public class BankTeller {
         }
     }
 
+    //FIX LENGTH
     private void executeCommandCaseC(StringTokenizer segmentedInput, AccountDatabase database){
 
         String fName = segmentedInput.nextToken();
@@ -132,7 +133,7 @@ public class BankTeller {
             Checking checking = new Checking(profile, validDeposit(deposit, initialDeposit));
             if(database.findAcct(checking)){
 
-                if(database.findAccount(checking).closed){
+                if(database.getAccount(checking).closed){
 
                     checking.closed = true;
                     database.open(checking);
@@ -154,6 +155,8 @@ public class BankTeller {
 
         }
     }
+
+    //FIX LENGTH
     private void executeCommandCaseCC(StringTokenizer segmentedInput, AccountDatabase database){
 
         String fName = segmentedInput.nextToken();
@@ -186,7 +189,7 @@ public class BankTeller {
             CollegeChecking checking = new CollegeChecking(profile, validDeposit(deposit, initialDeposit), campusCode);
             if(database.findAcct(checking)){
 
-                if(database.findAccount(checking).closed){
+                if(database.getAccount(checking).closed){
 
                     checking.closed = true;
                     database.open(checking);
@@ -211,6 +214,8 @@ public class BankTeller {
 
         }
     }
+
+    //FIX LENGTH
     private void executeCommandCaseS(StringTokenizer segmentedInput, AccountDatabase database){
 
         String fName = segmentedInput.nextToken();
@@ -258,8 +263,8 @@ public class BankTeller {
         }
     }
 
+    //FIX LENGTH
     private void executeCommandCaseMM(StringTokenizer segmentedInput, AccountDatabase database){
-        //john doe dob 100
         String fName = segmentedInput.nextToken();
         String lName = segmentedInput.nextToken();
         String dob = segmentedInput.nextToken();
@@ -281,9 +286,9 @@ public class BankTeller {
                 return;
             }
 
-            if(database.findAcct(checking) && database.findAccount(checking).getType().equals(checking.getType())){
+            if(database.findAcct(checking) && database.getAccount(checking).getType().equals(checking.getType())){
 
-                if(database.findAccount(checking).closed){
+                if(database.getAccount(checking).closed){
 
                     checking.closed = true;
                     database.open(checking);
@@ -309,6 +314,13 @@ public class BankTeller {
 
     }
 
+    /**
+     * Matches the command selecting an account and returns its respective account name
+     *
+     * @param cmd String from user input to identify what type of account is being selected
+     *
+     * @return String containing the account type if matched, returns No Match otherwise
+     */
     private String getAccountType(String cmd){
         if(cmd.equals("C")){
             return "Checking";
@@ -322,7 +334,7 @@ public class BankTeller {
         if(cmd.equals("MM")){
             return "Money Market";
         }
-        return "None";
+        return "No Match";
     }
 
     private void tryCommandC(StringTokenizer segmentedInput, AccountDatabase database){
@@ -359,6 +371,16 @@ public class BankTeller {
         }
     }
 
+
+    /**
+     * Creates an account based on the account type given a profile and balance
+     *
+     * @param profile Profile object that holds first name, last name, and date of birth
+     * @param type String from user input to identify what type of account is being selected
+     * @param balance Double value representing account balance
+     *
+     * @return an Account of either type Checking, College Checking, Savings, or Money Market
+     */
     private Account createAccount(Profile profile, String type, double balance){
 
         if(type.equals("C")){
@@ -373,7 +395,6 @@ public class BankTeller {
         if(type.equals("MM")){
             return new MoneyMarket(profile,balance);
         }
-
         return null;
     }
 
@@ -484,6 +505,7 @@ public class BankTeller {
         }
 
     }
+
     private void executeCommandP(AccountDatabase database){
         if(database.getNumAcct()==0){
             System.out.println("Account Database is empty!");
