@@ -96,7 +96,7 @@ public class Savings extends Account {
     /**
      * Returns fee if balance is below threshold
      *
-     * If balance is < $300 a fee of 6 dollars is applied
+     * If balance is less than $300 a fee of 6 dollars is applied
      * otherwise, no fee
      *
      * @return Double representing account fee

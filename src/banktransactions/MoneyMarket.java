@@ -19,7 +19,7 @@ public class MoneyMarket extends Savings {
     public static final double MONTHS_IN_A_YEAR = 12;
     public static final int DEFAULT_LOYALTY = 1;
     public int withdrawCount = 0;
-    public int MAX_WITHDRAW_LIMIT = 3;
+    public static final int MAX_WITHDRAW_LIMIT = 3;
 
     public final double BALANCE_IF_WAIVED = 2500;
     public static final String ACCOUNT_TYPE = "Money Market Savings";
@@ -63,7 +63,6 @@ public class MoneyMarket extends Savings {
         }
         return false;
     }
-
 
     /**
      * Returns balance of a Money Market account with interest added

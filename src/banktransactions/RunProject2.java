@@ -7,7 +7,12 @@ package banktransactions;
  * @author Mark Holleran, Abhitej Bokka
  */
 public class RunProject2 {
-
+    /**
+     * Main method for creating an instance
+     * of BankTeller
+     *
+     * @param args Commandline input
+     */
     public static void main(String[] args) {
 
         new BankTeller().run();

@@ -8,6 +8,7 @@ import java.text.DecimalFormat;
  * An Account object contains a Profile object,
  * a boolean representing a closed or open account,
  * and a double representing the current balance.
+ *
  * @author Mark Holleran, Abhitej Bokka
  */
 public abstract class Account {

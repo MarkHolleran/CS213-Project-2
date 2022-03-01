@@ -429,7 +429,7 @@ public class BankTeller {
      * Private method for depositing amount into an Account object
      *
      * @param segmentedInput Commandline input containing account type,
-     * first & last name, date of birth, and deposit amount
+     * first and last name, date of birth, and deposit amount
      * @param database Database containing Account objects
      */
     private void tryCommandD(StringTokenizer segmentedInput, AccountDatabase database){
@@ -468,7 +468,7 @@ public class BankTeller {
      * amount from the balance of an Account object
      *
      * @param segmentedInput String input containing account type,
-     * first & last name, date of birth and withdraw amount
+     * first and last name, date of birth and withdraw amount
      * @param database Database containing Account objects
      */
     private void tryCommandW(StringTokenizer segmentedInput, AccountDatabase database){
