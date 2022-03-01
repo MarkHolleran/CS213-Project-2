@@ -92,7 +92,7 @@ public class BankTeller {
      * the command will move forward to execute
      * commands of different account type.
      *
-     * @param segmentedInput Commandline input
+     * @param segmentedInput Commandline input from user
      * @param database Database containing Account objects
      */
     private void tryCommandO(StringTokenizer segmentedInput, AccountDatabase database){
@@ -132,6 +132,16 @@ public class BankTeller {
         }
     }
 
+
+    /**
+     * Method that constructs a Profile Object
+     *
+     * Takes in a StringTokenizer containing the
+     * first name, last name, and date of birth
+     * and constructs a Profile object
+     *
+     * @param segmentedInput String Tokenizer from user input
+     */
     private Profile createProfile(StringTokenizer segmentedInput){
         String fName = segmentedInput.nextToken();
         String lName = segmentedInput.nextToken();
@@ -146,6 +156,20 @@ public class BankTeller {
         return profile;
     }
 
+
+    /**
+     * Attempts to reopen an account
+     *
+     * If the specified account already exists and is closed,
+     * open() from AccountDatabase will reopen the account, otherwise
+     * a message saying the account is open is printed
+     *
+
+     *
+     * @param checking Account object to be opened in array
+     * @param profile Profile used to print eror message if already open
+     * @param database AccountDatabase to access the array of accounts
+     */
     private void attemptReopen(Account checking, Profile profile, AccountDatabase database){
         if(database.getAccount(checking).closed){
 
@@ -158,6 +182,14 @@ public class BankTeller {
         }
     }
 
+    /**
+     * Attempts to open an account unless a duplicate is found
+     *
+     *
+     * @param checking Account object to be opened in array
+     * @param profile Profile used to print eror message if already open
+     * @param database AccountDatabase to access the array of accounts
+     */
     private void attemptOpen(Account checking, Profile profile, AccountDatabase database){
         try{
             if(database.duplicateAccount(checking)){
@@ -396,7 +428,8 @@ public class BankTeller {
     /**
      * Private method for depositing amount into an Account object
      *
-     * @param segmentedInput Commandline input containing account type, first & last name, date of birth, and deposit amount
+     * @param segmentedInput Commandline input containing account type,
+     * first & last name, date of birth, and deposit amount
      * @param database Database containing Account objects
      */
     private void tryCommandD(StringTokenizer segmentedInput, AccountDatabase database){
@@ -434,7 +467,8 @@ public class BankTeller {
      * Private method for subtracting specified
      * amount from the balance of an Account object
      *
-     * @param segmentedInput String input containing account type, first & last name, date of birth and withdraw amount
+     * @param segmentedInput String input containing account type,
+     * first & last name, date of birth and withdraw amount
      * @param database Database containing Account objects
      */
     private void tryCommandW(StringTokenizer segmentedInput, AccountDatabase database){
@@ -470,7 +504,7 @@ public class BankTeller {
     }
 
     /**
-     * Private method executing available commands
+     * Private method trying to execute available commands
      *
      * String input is tokenized and processed one at a time
      * @param segmentedInput String input broken down and
@@ -512,7 +546,7 @@ public class BankTeller {
 
     /**
      * Private method that displays all accounts in the Database Array
-     * in various ordering
+     * in current ordering
      *
      * @param database Database containing Account objects
      */
@@ -527,6 +561,13 @@ public class BankTeller {
         System.out.println("*end of list*");
         System.out.println();
     }
+
+    /**
+     * Private method that displays all accounts in the Database Array
+     * based on the type of account
+     *
+     * @param database Database containing Account objects
+     */
     private void executeCommandPT(AccountDatabase database){
         if(database.getNumAcct()==0){
             System.out.println("Account Database is empty!");
@@ -536,6 +577,13 @@ public class BankTeller {
         System.out.println("*list of accounts by account type.");
         database.printByAccountType();
     }
+
+    /**
+     * Private method that displays all accounts in the Database Array
+     * in current ordering with fees and monthlyInterest
+     *
+     * @param database Database containing Account objects
+     */
     private void executeCommandPI(AccountDatabase database){
         if(database.getNumAcct()==0){
             System.out.println("Account Database is empty!");
@@ -545,6 +593,14 @@ public class BankTeller {
         System.out.println("*list of accounts with fee and monthly interest");
         database.printFeeAndInterest();
     }
+
+    /**
+     * Private method that recalculates balances given fees and
+     * monthlyInterst and displays all accounts in the Database Array
+     * in current ordering
+     *
+     * @param database Database containing Account objects
+     */
     private void executeCommandUB(AccountDatabase database){
         if(database.getNumAcct()==0){
             System.out.println("Account Database is empty!");
