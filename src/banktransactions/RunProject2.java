@@ -7,6 +7,13 @@ package banktransactions;
  * @author Mark Holleran, Abhitej Bokka
  */
 public class RunProject2 {
+
+    /**
+     * Constructor for creating an RunProject2
+     */
+    public RunProject2 (){
+
+    }
     /**
      * Main method for creating an instance
      * of BankTeller

@@ -30,6 +30,13 @@ public class BankTeller {
     public static final int DEPOSIT_OR_WITHDRAW_NUM_ARGUMENTS = 5;
 
     /**
+     * Constructor for Creating Bankteller
+     */
+    public BankTeller (){
+
+    }
+
+    /**
      * Verifies that the deposit from user input is a positive double
      *
      * If the deposit is invalid, the respective error message is printed

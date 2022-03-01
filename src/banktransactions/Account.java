@@ -18,6 +18,13 @@ public abstract class Account {
     protected double balance;
 
     /**
+     * Constructor for Creating an Account object
+     */
+    public Account (){
+
+    }
+
+    /**
      *Compares two Account objects for equality
      *
      * @param obj Instance of Account object to compare against another Account object
