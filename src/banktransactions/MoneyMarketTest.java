@@ -1,4 +1,4 @@
-/*
+
 package banktransactions;
 
 import org.junit.jupiter.api.Test;
@@ -22,8 +22,16 @@ class MoneyMarketTest {
         MoneyMarket test2 = new MoneyMarket(testProfile, 1000);
         assertEquals(1008.0 , test2.monthlyInterest());
 
+        //Test 3: Interest as a non loyal customer (with balance of 0)
+        MoneyMarket test3 = new MoneyMarket(testProfile, 0);
+        assertEquals(0 , test2.monthlyInterest());
+
+        //Test 4: Interest as a loyal customer (balance at 2500)
+        MoneyMarket test4 = new MoneyMarket(testProfile, 2500);
+        assertEquals(2523.75 , test1.monthlyInterest());
+        
+
     }
 
 }
 
-*/
